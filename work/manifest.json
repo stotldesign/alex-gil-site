@@ -1,0 +1,388 @@
+{
+ "design": [
+  {
+   "slug": "drafts",
+   "title": "Drafts",
+   "items": [
+    {
+     "id": "drafts-01",
+     "src": "https://freight.cargo.site/t/original/i/C1752695522057180952503869047398/5f5c0bb0-0338-45c9-a4c6-de92ef744fdf_rw_3840.jpg"
+    },
+    {
+     "id": "drafts-02",
+     "src": "https://freight.cargo.site/t/original/i/M1752695644156179976387391193702/9431fe29-28a3-467c-94f0-c93b62e13922_rw_1920.jpg"
+    },
+    {
+     "id": "drafts-03",
+     "src": "https://freight.cargo.site/t/original/i/V1751733429851067109773061718630/36f465a8-7867-49a9-bf42-5c2a5f6c4b48_rw_3840.jpg"
+    },
+    {
+     "id": "drafts-04",
+     "src": "https://freight.cargo.site/t/original/i/X2242465406065690898258296636006/Scan-40.jpg"
+    },
+    {
+     "id": "drafts-05",
+     "src": "https://freight.cargo.site/t/original/i/J1752713343641098004038780781158/1e056d2f-5d4b-4d5d-acea-c41cf1e37754_rw_3840.jpg"
+    },
+    {
+     "id": "drafts-06",
+     "src": "https://freight.cargo.site/t/original/i/N1752713458176931957701386764902/ffe7cb13-69df-4efc-ba3d-557cba886fed_rw_3840.jpg"
+    },
+    {
+     "id": "drafts-07",
+     "src": "https://freight.cargo.site/t/original/i/F1752711164859261970056220312166/87db4178-19cb-48bc-b7db-c0a4cd2591db_rw_1920.jpg"
+    },
+    {
+     "id": "drafts-08",
+     "src": "https://freight.cargo.site/t/original/i/H1752716905412230732173845004902/do-fc.jpg"
+    },
+    {
+     "id": "drafts-09",
+     "src": "https://freight.cargo.site/t/original/i/Y1752711337649913708493590299238/78de7eb1-6ead-4486-b655-a331fcf93c65_rw_1920.jpg"
+    },
+    {
+     "id": "drafts-10",
+     "src": "https://freight.cargo.site/t/original/i/C1751733429869513853846771270246/77bcb9c7-2bfb-4665-ad1c-3605f65b1f91_rw_1920.jpg"
+    },
+    {
+     "id": "drafts-11",
+     "src": "https://freight.cargo.site/t/original/i/R2242493547459219057717345321574/Scan-1-1.jpg"
+    },
+    {
+     "id": "drafts-12",
+     "src": "https://freight.cargo.site/t/original/i/Y2242493635542422009680454287974/fai-hand-comp.jpg"
+    },
+    {
+     "id": "drafts-13",
+     "src": "https://freight.cargo.site/t/original/i/F1751733429961747574215319028326/3849d7f6-7831-4566-8974-e84b87b17f3a_rw_1920.jpg"
+    },
+    {
+     "id": "drafts-14",
+     "src": "https://freight.cargo.site/t/original/i/D1751733429758833389404513960550/1ce0506c-6fd4-41b6-a1eb-d0005bde4818_rw_1920.png"
+    },
+    {
+     "id": "drafts-15",
+     "src": "https://freight.cargo.site/t/original/i/H1751733429924854086067899925094/299f41b0-ba75-4d4e-9903-eed19147f956_rw_1920.jpg"
+    },
+    {
+     "id": "drafts-16",
+     "src": "https://freight.cargo.site/t/original/i/P1751733429832620365699352167014/29ebe440-7da0-4066-bcc4-e428f4bcdf5f_rw_1920.jpg"
+    },
+    {
+     "id": "drafts-17",
+     "src": "https://freight.cargo.site/t/original/i/W1752706563226719062840021942886/self-scrib.jpg"
+    },
+    {
+     "id": "drafts-18",
+     "src": "https://freight.cargo.site/t/original/i/R2242480562445577436163481338470/Scan-34.jpg"
+    },
+    {
+     "id": "drafts-19",
+     "src": "https://freight.cargo.site/t/original/i/Y2242504056218829712648419476070/the-light.jpg"
+    },
+    {
+     "id": "drafts-20",
+     "src": "https://freight.cargo.site/t/original/i/V2242501052701512887185515807334/b39f4ccf-5732-445c-8873-1b2189430697_rw_1920.png"
+    },
+    {
+     "id": "drafts-21",
+     "src": "https://freight.cargo.site/t/original/i/F1751733429814173621625642615398/6b11a0ca-b3d3-4a2e-a5a1-6b989b2ae0e1_rw_1920.jpg"
+    },
+    {
+     "id": "drafts-22",
+     "src": "https://freight.cargo.site/t/original/i/B1751733429998641062362738131558/b5a362a9-62b1-4f94-bb7c-31fcded4c667_rw_1920.png"
+    }
+   ]
+  },
+  {
+   "slug": "alder-cote",
+   "title": "Alder Cote",
+   "items": [
+    {
+     "id": "alder-cote-01",
+     "src": "https://freight.cargo.site/t/original/i/A3067830263773503811502420329062/terr-cov-fin.jpg"
+    },
+    {
+     "id": "alder-cote-02",
+     "src": "https://freight.cargo.site/t/original/i/R3067842936336194312563899040358/stick-1-copy-2.JPG"
+    },
+    {
+     "id": "alder-cote-03",
+     "src": "https://freight.cargo.site/t/original/i/F3067835373318698044237412893286/hold-me-cover-final.jpg"
+    },
+    {
+     "id": "alder-cote-04",
+     "src": "https://freight.cargo.site/t/original/i/K3067838928393662673615909880422/cvdr6.jpg"
+    },
+    {
+     "id": "alder-cote-05",
+     "src": "https://freight.cargo.site/t/original/i/Y3067830560286468052309753004646/lkjar.jpg"
+    },
+    {
+     "id": "alder-cote-06",
+     "src": "https://freight.cargo.site/t/original/i/P3067830403396909705410016510566/stick-1-copy.jpg"
+    },
+    {
+     "id": "alder-cote-07",
+     "src": "https://freight.cargo.site/t/original/i/L3067830348628526550566357762662/sentimental-cover.jpg"
+    },
+    {
+     "id": "alder-cote-08",
+     "src": "https://freight.cargo.site/t/original/i/K3067840787936145767980970082918/First-Night-of-My-Life-artwork.jpg"
+    }
+   ]
+  },
+  {
+   "slug": "michl",
+   "title": "Michl",
+   "items": [
+    {
+     "id": "michl-01",
+     "src": "https://freight.cargo.site/t/original/i/I1752676699626717437783524835942/laiber.jpg"
+    },
+    {
+     "id": "michl-02",
+     "src": "https://freight.cargo.site/t/original/i/F1752677060869306633237674132070/mchl-lng.jpg"
+    }
+   ]
+  },
+  {
+   "slug": "aiden-kroll",
+   "title": "Aiden Kroll",
+   "items": [
+    {
+     "id": "aiden-kroll-01",
+     "src": "https://freight.cargo.site/t/original/i/S3067849548903648927079447724646/cov-new.jpg"
+    },
+    {
+     "id": "aiden-kroll-02",
+     "src": "https://freight.cargo.site/t/original/i/E3067849847261287575257735561830/rg.jpg"
+    },
+    {
+     "id": "aiden-kroll-03",
+     "src": "https://freight.cargo.site/t/original/i/C3067851005274093546448547807846/aiden-single-03.jpg"
+    },
+    {
+     "id": "aiden-kroll-04",
+     "src": "https://freight.cargo.site/t/original/i/B3067852032757738452070572819046/Alder-fin-des02.jpg"
+    }
+   ]
+  },
+  {
+   "slug": "mocha",
+   "title": "Mocha",
+   "items": [
+    {
+     "id": "mocha-01",
+     "src": "https://freight.cargo.site/t/original/i/M3067857641545614295680870318694/trafin1.jpg"
+    },
+    {
+     "id": "mocha-02",
+     "src": "https://freight.cargo.site/t/original/i/Z3067859210256730323941139743334/oakdnf.png"
+    }
+   ]
+  },
+  {
+   "slug": "alt-bloom",
+   "title": "Alt Bloom",
+   "items": [
+    {
+     "id": "alt-bloom-01",
+     "src": "https://freight.cargo.site/t/original/i/M1752690757724355315169425424998/altblmt.png"
+    },
+    {
+     "id": "alt-bloom-02",
+     "src": "https://freight.cargo.site/t/original/i/T2208590650736798552074263003750/althat.png"
+    },
+    {
+     "id": "alt-bloom-03",
+     "src": "https://freight.cargo.site/t/original/i/W2208585149106059032642750841446/alt-edc.jpg"
+    },
+    {
+     "id": "alt-bloom-04",
+     "src": "https://freight.cargo.site/t/original/i/R2068118028355997862276837737062/altbloomin-outside.jpg"
+    },
+    {
+     "id": "alt-bloom-05",
+     "src": "https://freight.cargo.site/t/original/i/J2208587365611486697361344365158/posndft.jpg"
+    },
+    {
+     "id": "alt-bloom-06",
+     "src": "https://freight.cargo.site/t/original/i/C1752698528618210550128848732774/alt-vsw6.jpg"
+    },
+    {
+     "id": "alt-bloom-07",
+     "src": "https://freight.cargo.site/t/original/i/F1752698301686364955353944752742/alt-afternoons-fin.jpg"
+    },
+    {
+     "id": "alt-bloom-08",
+     "src": "https://freight.cargo.site/t/original/i/U1980086025670376907478035661414/good-as-it-g.jpg"
+    },
+    {
+     "id": "alt-bloom-09",
+     "src": "https://freight.cargo.site/t/original/i/Q1752698651602653289550429356646/trauma-cover.jpg"
+    },
+    {
+     "id": "alt-bloom-10",
+     "src": "https://freight.cargo.site/t/original/i/M1752698043118353274167159751270/alt-vs-02.jpg"
+    },
+    {
+     "id": "alt-bloom-11",
+     "src": "https://freight.cargo.site/t/original/i/G2242457417481808849452454707814/alt-bnch-cvr.jpg"
+    },
+    {
+     "id": "alt-bloom-12",
+     "src": "https://freight.cargo.site/t/original/i/R2242457417463362105378745156198/alt-flwr-cvr.jpg"
+    }
+   ]
+  },
+  {
+   "slug": "johnny-balik",
+   "title": "Johnny Balik",
+   "items": [
+    {
+     "id": "johnny-balik-01",
+     "src": "https://freight.cargo.site/t/original/i/B1980110843015963216697011798630/balkcovfin.jpg"
+    },
+    {
+     "id": "johnny-balik-02",
+     "src": "https://freight.cargo.site/t/original/i/T1980110740415172678724485710438/cmn-001.jpg"
+    }
+   ]
+  }
+ ],
+ "photo": [
+  {
+   "slug": "michl",
+   "title": "Michl",
+   "items": [
+    {
+     "id": "michl-01",
+     "src": "https://freight.cargo.site/t/original/i/V1752725682280827282809956139622/6e06ecc7-b224-4afb-871f-5470d7cba4e0_rw_1920.jpg"
+    },
+    {
+     "id": "michl-02",
+     "src": "https://freight.cargo.site/t/original/i/B1752725682391507747252213449318/25e5c2e0-51e4-4304-b4ea-7e111d28a19a_rw_1920.jpg"
+    },
+    {
+     "id": "michl-03",
+     "src": "https://freight.cargo.site/t/original/i/L1752725682409954491325923000934/682e8955-9294-4582-b710-53b423234d3f_rw_1920.jpg"
+    },
+    {
+     "id": "michl-04",
+     "src": "https://freight.cargo.site/t/original/i/K1752725682428401235399632552550/27615fee-3be1-43f4-b30e-a2a3e79252d3_rw_1920.jpg"
+    },
+    {
+     "id": "michl-05",
+     "src": "https://freight.cargo.site/t/original/i/P1752725682446847979473342104166/f8dd5f8c-7032-4b92-a056-b85fde3678e5_rw_1920.jpg"
+    }
+   ]
+  },
+  {
+   "slug": "portraits",
+   "title": "Portraits",
+   "items": [
+    {
+     "id": "portraits-01",
+     "src": "https://freight.cargo.site/t/original/i/Y2208543323069226768047674032742/DSCF4292.jpg"
+    },
+    {
+     "id": "portraits-02",
+     "src": "https://freight.cargo.site/t/original/i/H1752729344512928236367238464102/DSCF9485.jpg"
+    },
+    {
+     "id": "portraits-03",
+     "src": "https://freight.cargo.site/t/original/i/Q2208567255063331259576720360038/imgcompressors-DSCF2032.jpg"
+    },
+    {
+     "id": "portraits-04",
+     "src": "https://freight.cargo.site/t/original/i/M2208567255044884515503010808422/imgcompressors-DSCF1925-2.jpg"
+    },
+    {
+     "id": "portraits-05",
+     "src": "https://freight.cargo.site/t/original/i/J2208572894454355521471163990630/Devin-Howard-78-930.jpg"
+    },
+    {
+     "id": "portraits-06",
+     "src": "https://freight.cargo.site/t/original/i/L2208572841881134911398941885030/IMG_3570-3.jpg"
+    },
+    {
+     "id": "portraits-07",
+     "src": "https://freight.cargo.site/t/original/i/K2208567255081778003650429911654/imgcompressors-DSCF4380.jpg"
+    },
+    {
+     "id": "portraits-08",
+     "src": "https://freight.cargo.site/t/original/i/P1752729344346907539703852499558/DSCF9223.jpg"
+    },
+    {
+     "id": "portraits-09",
+     "src": "https://freight.cargo.site/t/original/i/Y2208563876080985557829603099238/DSCF0399.jpg"
+    },
+    {
+     "id": "portraits-10",
+     "src": "https://freight.cargo.site/t/original/i/A2242517881241856218714135396966/dclassic-2024-04-11-224800.065-2.JPG"
+    },
+    {
+     "id": "portraits-11",
+     "src": "https://freight.cargo.site/t/original/i/Q1752677218072459629390473003622/dclassic-2024-04-11-224626.080.JPG"
+    }
+   ]
+  },
+  {
+   "slug": "wide",
+   "title": "Wide",
+   "items": [
+    {
+     "id": "wide-01",
+     "src": "https://freight.cargo.site/t/original/i/T1752737467462894118073454363238/09aac99e-f371-4246-a042-94afc63f8953_rw_1920.jpg"
+    },
+    {
+     "id": "wide-02",
+     "src": "https://freight.cargo.site/t/original/i/H1752740565427540600929262305894/65b93119-b1f1-4648-b2c6-dcdc803f1dd2_rw_1920.jpg"
+    },
+    {
+     "id": "wide-03",
+     "src": "https://freight.cargo.site/t/original/i/E1752740809570198416475177943654/e4fb83d5-1689-4ed6-aed2-969cdd1014e4_rw_1920.jpg"
+    },
+    {
+     "id": "wide-04",
+     "src": "https://freight.cargo.site/t/original/i/R1752741394387325785289092825702/b6435cd5-af2e-4b84-b175-6bf110eacd4d_rw_1920.jpg"
+    },
+    {
+     "id": "wide-05",
+     "src": "https://freight.cargo.site/t/original/i/T1752741716578157776700121350758/250ee21c-45d4-4ac4-a5c0-b374b99b0cb0_rw_1920.jpg"
+    }
+   ]
+  },
+  {
+   "slug": "self",
+   "title": "Self",
+   "items": [
+    {
+     "id": "self-01",
+     "src": "https://freight.cargo.site/t/original/i/D2242525963276943744932565811814/yelmr.jpg"
+    },
+    {
+     "id": "self-02",
+     "src": "https://freight.cargo.site/t/original/i/T1752745066008819472364536922726/cf44c41f-a7b9-40da-9a2a-80d7ca72ef6f_rw_1920.jpg"
+    },
+    {
+     "id": "self-03",
+     "src": "https://freight.cargo.site/t/original/i/P1752745183385452013378413855334/60bc652a-58f3-4c4b-8ac0-587f90ab30b5_rw_1920.jpg"
+    },
+    {
+     "id": "self-04",
+     "src": "https://freight.cargo.site/t/original/i/P1752745690412659623359149572710/6913253a-7fdd-4d9b-a1cb-3a5918aa4a59_rw_1920.jpg"
+    },
+    {
+     "id": "self-05",
+     "src": "https://freight.cargo.site/t/original/i/Y1752745439334026036098442527334/acc08fb7-a255-49fa-9603-cdfa37f6673b_rw_1920.jpg"
+    },
+    {
+     "id": "self-06",
+     "src": "https://freight.cargo.site/t/original/i/U2242524366729690909444582998630/DSC08302.jpg"
+    }
+   ]
+  }
+ ]
+}
