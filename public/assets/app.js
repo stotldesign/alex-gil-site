@@ -233,6 +233,14 @@
     var grid = el("div", "grid");
     var more = el("div", "more");
 
+    // All: shuffled once per visit. A channel: newest to oldest.
+    var shuffled = [];
+    function currentList() {
+      if (state.filter === "All") return shuffled;
+      return all.filter(inFilter).sort(function (a, b) {
+        return (Date.parse(b.published) || 0) - (Date.parse(a.published) || 0);
+      });
+    }
     function inFilter(v) {
       if (state.filter === "All") return true;
       return v.channel === state.filter;
@@ -266,7 +274,8 @@
       var next = el("button", "pill", "Up next ›");
       next.type = "button";
       next.addEventListener("click", function () {
-        state.sel = all[(all.indexOf(state.sel) + 1) % all.length];
+        var l = currentList();
+        state.sel = l[(l.indexOf(state.sel) + 1) % l.length];
         state.playing = false;
         renderFeature();
       });
@@ -303,7 +312,7 @@
     function renderGrid() {
       grid.textContent = "";
       more.textContent = "";
-      var list = all.filter(inFilter);
+      var list = currentList();
       list.slice(0, state.limit).forEach(function (v) {
         var c = el("button", "card");
         c.type = "button";
@@ -335,7 +344,12 @@
         return;
       }
       all = v;
-      state.sel = all[0];
+      shuffled = v.slice();
+      for (var i = shuffled.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1)), tmp = shuffled[i];
+        shuffled[i] = shuffled[j]; shuffled[j] = tmp;
+      }
+      state.sel = shuffled[0];
       root.appendChild(feature);
       root.appendChild(pills);
       root.appendChild(grid);
