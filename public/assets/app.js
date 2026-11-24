@@ -7,6 +7,7 @@
     collabs: ["Payton King", "Alicia", "Max"], // grouped under one "Collabs" filter
     pageSize: 12,
     heroSeconds: 3,
+    creditsShown: 4,                    // channels named in the "edited for" line
     tickSeconds: 2                      // how often the view counter steps up (by however many real views came in)
   };
 
@@ -109,6 +110,44 @@
     };
   }
 
+  // "edited for" line: the 4 biggest channels by subscribers, each with its small YouTube
+  // profile picture, then "+N more" linking to the Video page.
+  function renderCredits(node, d) {
+    var list = (d.channels || []).slice();
+    if (!list.length) {
+      // snapshot fallback: no subscriber data, rank by views on Alex's edits instead
+      var by = {};
+      (d.videos || []).forEach(function (x) { by[x.channel] = (by[x.channel] || 0) + x.views; });
+      list = Object.keys(by).sort(function (a, b) { return by[b] - by[a]; }).map(function (n) { return { name: n }; });
+    }
+    if (!list.length) return;
+    var show = SETTINGS.creditsShown;
+    node.textContent = "";
+    node.appendChild(document.createTextNode("edited for: "));
+    list.slice(0, show).forEach(function (c, i) {
+      if (i) node.appendChild(el("span", "credit__sep", "·"));
+      var item = el(c.url ? "a" : "span", "credit");
+      if (c.url) { item.href = c.url; item.target = "_blank"; item.rel = "noopener"; }
+      if (c.avatar) {
+        var img = el("img", "credit__pic");
+        img.src = c.avatar;
+        img.alt = "";
+        img.loading = "lazy";
+        img.referrerPolicy = "no-referrer";
+        img.onerror = function () { img.remove(); };
+        item.appendChild(img);
+      }
+      item.appendChild(document.createTextNode(c.name));
+      node.appendChild(item);
+    });
+    if (list.length > show) {
+      node.appendChild(el("span", "credit__sep", "·"));
+      var more = el("a", "credit credit--more", "+" + (list.length - show) + " more");
+      more.href = "/video/";
+      node.appendChild(more);
+    }
+  }
+
   // ---- homepage ----
   function initHero() {
     var hero = $("[data-hero]");
@@ -180,11 +219,7 @@
       var count = $("[data-count]");
       if (count) count.textContent = v.length + " edits →";
       var credit = $("[data-edited-for]");
-      if (credit) {
-        var by = {};
-        v.forEach(function (x) { by[x.channel] = (by[x.channel] || 0) + x.views; });
-        credit.textContent = "edited for: " + Object.keys(by).sort(function (a, b) { return by[b] - by[a]; }).join(" · ");
-      }
+      if (credit) renderCredits(credit, d);
     });
   }
 

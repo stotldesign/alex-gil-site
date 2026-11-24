@@ -32,8 +32,9 @@ export async function onRequestGet(context) {
 
   try {
     const videos = await loadPlaylist(env.YT_API_KEY, playlist);
+    const channels = await loadChannels(env.YT_API_KEY, videos).catch(() => (snap && snap.channels) || []);
     const total = videos.reduce((s, v) => s + v.views, 0);
-    const body = { updated: new Date(now).toISOString(), source: "live", total, rate: 0, videos };
+    const body = { updated: new Date(now).toISOString(), source: "live", total, rate: 0, channels, videos };
 
     // Rate = median of the last 12 measurements (~1 hour). A sudden step (a video added, a
     // viral spike) shows up in one reading and is ignored here; the catch-up below spreads it
@@ -98,6 +99,7 @@ export async function loadPlaylist(key, playlist) {
         id: v.id,
         title: v.snippet.title,
         channel: tidyName(v.snippet.channelTitle),
+        channelId: v.snippet.channelId,
         published: v.snippet.publishedAt,
         views: Number(v.statistics.viewCount || 0),
         len: duration(v.contentDetails.duration)
@@ -106,6 +108,27 @@ export async function loadPlaylist(key, playlist) {
   }
   videos.sort((a, b) => b.views - a.views);
   return videos;
+}
+
+// Channel name, subscriber count and small profile picture for every creator in the playlist.
+export async function loadChannels(key, videos) {
+  const ids = [...new Set(videos.map((v) => v.channelId).filter(Boolean))];
+  const channels = [];
+  for (let i = 0; i < ids.length; i += 50) {
+    const j = await yt("channels", { part: "snippet,statistics", id: ids.slice(i, i + 50).join(",") }, key);
+    for (const c of j.items || []) {
+      const th = c.snippet.thumbnails || {};
+      channels.push({
+        id: c.id,
+        name: tidyName(c.snippet.title),
+        url: c.snippet.customUrl ? "https://www.youtube.com/" + c.snippet.customUrl : "https://www.youtube.com/channel/" + c.id,
+        subs: c.statistics.hiddenSubscriberCount ? 0 : Number(c.statistics.subscriberCount || 0),
+        avatar: (th.default || th.medium || {}).url || ""
+      });
+    }
+  }
+  channels.sort((a, b) => b.subs - a.subs);
+  return channels;
 }
 
 // "MADS LUDVIG" → "Mads Ludvig" so all-caps channel names match the rest of the credits
