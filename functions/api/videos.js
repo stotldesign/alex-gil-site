@@ -9,20 +9,48 @@ const API = "https://www.googleapis.com/youtube/v3/";
 export async function onRequestGet(context) {
   const { env, request } = context;
   const playlist = env.YT_PLAYLIST_ID || DEFAULT_PLAYLIST;
+  const now = Date.now();
+
+  // With a KV store (binding STATS) we keep the last snapshot there. That also lets us
+  // measure views per second between refreshes, which the homepage uses to tick the counter.
+  const kv = env.STATS;
+  const kvKey = "snap:" + playlist;
   const cache = caches.default;
   const cacheKey = new Request(new URL("/api/videos?playlist=" + playlist, request.url).toString());
 
-  const hit = await cache.match(cacheKey);
-  if (hit) return hit;
+  let snap = null;
+  if (kv) {
+    snap = await kv.get(kvKey, "json");
+    if (snap && now - Date.parse(snap.updated) < CACHE_SECONDS * 1000) return json(snap, 200, 60);
+  } else {
+    const hit = await cache.match(cacheKey);
+    if (hit) return hit;
+  }
 
-  if (!env.YT_API_KEY) return json({ error: "YT_API_KEY is not set" }, 503, 0);
+  if (!env.YT_API_KEY) return snap ? json(snap, 200, 60) : json({ error: "YT_API_KEY is not set" }, 503, 0);
 
   try {
     const videos = await loadPlaylist(env.YT_API_KEY, playlist);
-    const res = json({ updated: new Date().toISOString(), source: "live", videos }, 200, CACHE_SECONDS);
+    const total = videos.reduce((s, v) => s + v.views, 0);
+    const body = { updated: new Date(now).toISOString(), source: "live", total, rate: 0, videos };
+
+    if (snap) {
+      const secs = (now - Date.parse(snap.updated)) / 1000;
+      const measured = secs >= 120 && secs <= 6 * 3600 && total >= snap.total ? (total - snap.total) / secs : null;
+      // blend with the previous rate so one quiet or busy refresh doesn't jerk the ticker around
+      body.rate = measured == null ? snap.rate || 0 : snap.rate ? (snap.rate + measured) / 2 : measured;
+      body.rate = Math.round(body.rate * 1000) / 1000;
+    }
+
+    if (kv) {
+      context.waitUntil(kv.put(kvKey, JSON.stringify(body)));
+      return json(body, 200, 60);
+    }
+    const res = json(body, 200, CACHE_SECONDS);
     context.waitUntil(cache.put(cacheKey, res.clone()));
     return res;
   } catch (err) {
+    if (snap) return json(snap, 200, 60);
     return json({ error: String(err.message || err) }, 502, 0);
   }
 }

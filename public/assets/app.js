@@ -10,20 +10,26 @@
   };
 
   // ---- data: live from /api/videos, falls back to the saved snapshot ----
-  var dataPromise;
-  function getData() {
-    if (!dataPromise) {
-      dataPromise = fetch("/api/videos")
-        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+  // Raw response: { updated, total, rate (views per second), videos: [...] }
+  function fetchRaw(bust) {
+    return fetch("/api/videos" + (bust ? "?t=" + Date.now() : ""))
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+  }
+  var rawPromise;
+  function getRaw() {
+    if (!rawPromise) {
+      rawPromise = fetchRaw(false)
         .catch(function () { return fetch("/data/videos.json").then(function (r) { return r.json(); }); })
-        .then(function (d) {
-          var v = (d && d.videos) || [];
-          v.sort(function (a, b) { return b.views - a.views; });
-          return v;
-        })
-        .catch(function () { return []; });
+        .catch(function () { return { videos: [] }; });
     }
-    return dataPromise;
+    return rawPromise;
+  }
+  function getData() {
+    return getRaw().then(function (d) {
+      var v = (d && d.videos) || [];
+      v.sort(function (a, b) { return b.views - a.views; });
+      return v;
+    });
   }
 
   // ---- helpers ----
@@ -102,10 +108,30 @@
     unitsBtn.addEventListener("click", function () { unit = (unit + 1) % 3; paint(); });
     paint();
 
-    getData().then(function (v) {
-      if (!v.length) return;
-      t = total(v);
+    // Ticking: between refreshes, count up at the measured views-per-second rate.
+    // Never counts backwards; re-checks the real number every minute.
+    var base = t, baseAt = Date.now(), rate = 0;
+    function apply(d) {
+      if (!d || !d.videos || !d.videos.length) return;
+      var real = d.total || total(d.videos);
+      base = Math.max(real, Math.min(t, real + 500)); // keep what's shown if it's only slightly ahead
+      baseAt = d.updated && d.source === "live" ? Math.max(Date.parse(d.updated), Date.now() - 600000) : Date.now();
+      if (base > real) baseAt = Date.now();
+      rate = d.rate > 0 ? d.rate : 0;
+      if (t < base || t > base + 500) t = base;
       paint();
+    }
+    setInterval(function () {
+      if (!rate) return;
+      var next = Math.floor(base + rate * (Date.now() - baseAt) / 1000);
+      if (next > t) { t = next; paint(); }
+    }, 250);
+    setInterval(function () { fetchRaw(true).then(apply).catch(function () {}); }, 60000);
+
+    getRaw().then(function (d) {
+      var v = (d && d.videos) || [];
+      if (!v.length) return;
+      apply(d);
       var count = $("[data-count]");
       if (count) count.textContent = v.length + " edits →";
       var credit = $("[data-edited-for]");

@@ -9,6 +9,10 @@
     "binding": "ASSETS",
     "run_worker_first": ["/api/*"]
   },
+  // Last YouTube snapshot + views-per-second rate (powers the ticking counter)
+  "kv_namespaces": [
+    { "binding": "STATS", "id": "86c7403d45d441caafbc9d41b36d3909" }
+  ],
   "vars": {
     "YT_PLAYLIST_ID": "PLUp31RSSTci0"
   }
