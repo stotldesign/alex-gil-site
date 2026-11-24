@@ -72,10 +72,17 @@ a.credit:hover { color: var(--red); }
 a.credit:hover .credit__pic { filter: none; }
 .foot__ig { font-size: 24px; }
 
-/* video thumbnails */
+/* video thumbnails: black and white with film grain, full color on hover */
 .thumb { position: relative; overflow: hidden; border-radius: 12px; aspect-ratio: 16 / 9; background: var(--tint); }
-.thumb img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
-.card:hover .thumb img, .card:focus-visible .thumb img { transform: scale(1.03); }
+.thumb img { display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.08); transition: filter .25s, transform .3s; }
+.thumb::after {
+  content: ""; position: absolute; inset: -50%; pointer-events: none; opacity: .6; mix-blend-mode: overlay; transition: opacity .25s;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncR type='linear' slope='2.2' intercept='-.6'/><feFuncG type='linear' slope='2.2' intercept='-.6'/><feFuncB type='linear' slope='2.2' intercept='-.6'/></feComponentTransfer></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+}
+.card:hover .thumb img, .card:focus-visible .thumb img, .feature__media .thumb:hover img { filter: none; transform: scale(1.03); }
+.card:hover .thumb::after, .card:focus-visible .thumb::after, .feature__media .thumb:hover::after { opacity: 0; }
+@media (hover: none) { .card:active .thumb img { filter: none; } .card:active .thumb::after { opacity: 0; } }
 .len { position: absolute; right: 8px; bottom: 8px; z-index: 1; background: var(--ink); color: var(--paper); border-radius: 4px; padding: 2px 6px; font: 500 11px var(--mono); }
 
 /* video page */
