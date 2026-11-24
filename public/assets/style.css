@@ -94,18 +94,14 @@ a.credit:hover .credit__pic { filter: none; }
 .feature__title { font-size: 30px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; }
 .feature__row { border-top: var(--rule); padding-top: 10px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .pills { display: flex; align-items: center; gap: 8px; padding: 16px 0; }
-.marquee { flex: 1; min-width: 0; overflow: hidden; mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 48px), transparent); }
-.marquee__track { display: flex; width: max-content; animation: marquee 30s linear infinite; }
+.marquee { flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; cursor: grab; user-select: none;
+  mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 48px), transparent); }
+.marquee::-webkit-scrollbar { display: none; }
+.marquee:active { cursor: grabbing; }
+.marquee__track { display: flex; width: max-content; }
 .marquee__set { display: flex; gap: 8px; padding-right: 8px; }
-.marquee:hover .marquee__track, .marquee:focus-within .marquee__track { animation-play-state: paused; }
-@keyframes marquee { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) {
-  .marquee { overflow-x: auto; scrollbar-width: none; }
-  .marquee__track { animation: none; }
-  .marquee__set[aria-hidden], .marquee__set:nth-child(2) { display: none; }
-}
 @keyframes fadeIn { from { opacity: 0; } }
-.feature__media .thumb { animation: fadeIn .5s ease; }
+.feature__media .thumb { animation: fadeIn .8s ease; }
 .pill { all: unset; flex: 0 0 auto; white-space: nowrap; cursor: pointer; border: var(--rule); border-radius: 999px; padding: 8px 14px; font: 500 13px var(--mono); }
 .pill:hover { background: var(--tint); }
 .pill[aria-pressed="true"] { background: var(--ink); color: var(--paper); }

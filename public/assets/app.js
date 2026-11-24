@@ -6,9 +6,9 @@
     avgMinutesWatched: 12,              // used only for the "years of watching" joke
     pageSize: 12,
     heroSeconds: 3,
-    creditsShown: 4,
-    featureSeconds: 6,                  // featured video rotates through each channel's most-viewed edit
-    marqueeSpeed: 35,                   // channel row scroll speed, pixels per second                    // channels named in the "edited for" line
+    creditsShown: 4,                    // channels named in the "edited for" line
+    featureSeconds: 9,                  // featured video rotates through each channel's most-viewed edit
+    marqueeSpeed: 18,                   // channel row drift speed, pixels per second
     tickSeconds: 2                      // how often the view counter steps up (by however many real views came in)
   };
 
@@ -334,8 +334,67 @@
       track.appendChild(setB);
       viewport.appendChild(track);
       pills.appendChild(viewport);
-      requestAnimationFrame(function () {
-        track.style.animationDuration = Math.max(10, setA.offsetWidth / SETTINGS.marqueeSpeed) + "s";
+      var keepAt = marquee.el ? marquee.pos : 0;
+      marquee.el = viewport;
+      marquee.set = setA;
+      marquee.pos = keepAt;
+      viewport.scrollLeft = keepAt;
+      bindMarquee(viewport);
+    }
+
+    // Channel row: drifts on its own and loops forever, but people can also swipe, trackpad-scroll
+    // or drag it. Any touch, drag, scroll or hover pauses the drift; it resumes 2s after.
+    var marquee = { el: null, set: null, pos: 0, pausedUntil: 0, hover: false, last: 0 };
+    var reduceMotion = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function wrap() {
+      var w = marquee.set.offsetWidth;
+      if (w > 0) {
+        while (marquee.pos >= w) marquee.pos -= w;
+        while (marquee.pos < 0) marquee.pos += w;
+      }
+    }
+    function frame(now) {
+      var dt = marquee.last ? (now - marquee.last) / 1000 : 0;
+      marquee.last = now;
+      var m = marquee;
+      if (m.el && !reduceMotion && !m.hover && now > m.pausedUntil && !document.hidden) {
+        m.pos += SETTINGS.marqueeSpeed * Math.min(dt, 0.1);
+        wrap();
+        m.el.scrollLeft = m.pos;
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+    function bindMarquee(vp) {
+      function pause() { marquee.pausedUntil = performance.now() + 2000; }
+      vp.addEventListener("scroll", function () {
+        if (Math.abs(vp.scrollLeft - marquee.pos) <= 2) return; // our own drift
+        marquee.pos = vp.scrollLeft; // someone scrolled it
+        wrap();
+        if (Math.abs(vp.scrollLeft - marquee.pos) > 2) vp.scrollLeft = marquee.pos;
+        pause();
+      }, { passive: true });
+      vp.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") marquee.hover = true; });
+      vp.addEventListener("pointerleave", function () { marquee.hover = false; pause(); });
+      vp.addEventListener("touchstart", pause, { passive: true });
+      vp.addEventListener("wheel", pause, { passive: true });
+      // mouse drag to scroll; a drag doesn't count as a click on a channel
+      var drag = null;
+      vp.addEventListener("pointerdown", function (e) {
+        if (e.pointerType !== "mouse") return;
+        drag = { x: e.clientX, start: vp.scrollLeft, moved: false };
+      });
+      window.addEventListener("pointermove", function (e) {
+        if (!drag) return;
+        var dx = e.clientX - drag.x;
+        if (Math.abs(dx) > 4) drag.moved = true;
+        if (drag.moved) { vp.scrollLeft = drag.start - dx; pause(); }
+      });
+      window.addEventListener("pointerup", function () {
+        if (drag && drag.moved) {
+          vp.addEventListener("click", function stop(ev) { ev.stopPropagation(); ev.preventDefault(); }, { capture: true, once: true });
+        }
+        drag = null;
       });
     }
 
