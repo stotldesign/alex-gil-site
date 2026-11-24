@@ -72,6 +72,43 @@
     return t;
   }
 
+  // Odometer-style number: each digit is a column 0–9 that slides to its value.
+  // Screen readers get the plain number; reduced-motion users get instant changes (via CSS).
+  function rollingNumber(node) {
+    var cols = [], current = "";
+    function build(s) {
+      node.textContent = "";
+      cols = [];
+      var vis = el("span");
+      vis.setAttribute("aria-hidden", "true");
+      for (var i = 0; i < s.length; i++) {
+        if (!/\d/.test(s[i])) { vis.appendChild(el("span", "roll-sep", s[i])); cols.push(null); continue; }
+        var cell = el("span", "roll-cell");
+        var col = el("span", "roll-col");
+        for (var k = 0; k < 10; k++) col.appendChild(el("span", null, String(k)));
+        col.style.transition = "none";
+        col.style.transform = "translateY(-" + s[i] + "0%)";
+        cell.appendChild(col);
+        vis.appendChild(cell);
+        cols.push(col);
+      }
+      node.appendChild(vis);
+      var sr = el("span", "sr-only", s);
+      node.appendChild(sr);
+      void node.offsetWidth; // apply start positions before enabling transitions
+      cols.forEach(function (c) { if (c) c.style.transition = ""; });
+    }
+    return function (s) {
+      if (s === current) return;
+      if (s.length !== current.length) build(s);
+      else {
+        for (var i = 0; i < s.length; i++) if (cols[i]) cols[i].style.transform = "translateY(-" + s[i] + "0%)";
+        node.lastChild.textContent = s;
+      }
+      current = s;
+    };
+  }
+
   // ---- homepage ----
   function initHero() {
     var hero = $("[data-hero]");
@@ -102,8 +139,9 @@
         "every Angeleno, " + (t / 3800000).toFixed(1) + " times over"
       ];
     }
+    var roll = rollingNumber(num);
     function paint() {
-      num.textContent = t.toLocaleString("en-US");
+      roll(t.toLocaleString("en-US"));
       unitsText.textContent = units()[unit];
     }
     unitsBtn.addEventListener("click", function () { unit = (unit + 1) % 3; paint(); });

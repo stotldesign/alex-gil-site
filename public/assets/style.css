@@ -38,6 +38,11 @@ button { font: inherit; color: inherit; }
 .views { border-top: var(--rule); padding-top: 10px; }
 .views__line { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .views__num { font: 500 clamp(40px, 6vw, 64px) / 1.1 var(--mono); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.roll-cell { display: inline-block; height: 1.1em; overflow: hidden; vertical-align: bottom; }
+.roll-col { display: flex; flex-direction: column; transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
+.roll-col > span { height: 1.1em; line-height: 1.1em; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .roll-col { transition: none; } }
 .views__label { font: 400 16px var(--mono); color: var(--dim); }
 .views__units { all: unset; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; min-height: 32px; padding: 6px 0; font-size: 17px; }
 .views__units .mono { color: var(--dim); font-size: 12px; }
