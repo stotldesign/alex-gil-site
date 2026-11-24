@@ -6,7 +6,8 @@
     avgMinutesWatched: 12,              // used only for the "years of watching" joke
     collabs: ["Payton King", "Alicia", "Max"], // grouped under one "Collabs" filter
     pageSize: 12,
-    heroSeconds: 3
+    heroSeconds: 3,
+    tickSeconds: 3.25                   // how often the view counter steps up (by however many real views came in)
   };
 
   // ---- data: live from /api/videos, falls back to the saved snapshot ----
@@ -125,7 +126,7 @@
       if (!rate) return;
       var next = Math.floor(base + rate * (Date.now() - baseAt) / 1000);
       if (next > t) { t = next; paint(); }
-    }, 250);
+    }, SETTINGS.tickSeconds * 1000);
     setInterval(function () { fetchRaw(true).then(apply).catch(function () {}); }, 60000);
 
     getRaw().then(function (d) {
