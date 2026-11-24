@@ -6,7 +6,9 @@
     avgMinutesWatched: 12,              // used only for the "years of watching" joke
     pageSize: 12,
     heroSeconds: 3,
-    creditsShown: 4,                    // channels named in the "edited for" line
+    creditsShown: 4,
+    featureSeconds: 6,                  // featured video rotates through each channel's most-viewed edit
+    marqueeSpeed: 35,                   // channel row scroll speed, pixels per second                    // channels named in the "edited for" line
     tickSeconds: 2                      // how often the view counter steps up (by however many real views came in)
   };
 
@@ -226,8 +228,8 @@
   function initVideos() {
     var root = $("[data-videos]");
     if (!root) return;
-    var state = { sel: null, filter: "All", limit: SETTINGS.pageSize, playing: false };
-    var all = [];
+    var state = { sel: null, filter: "All", limit: SETTINGS.pageSize, playing: false, auto: true };
+    var all = [], highlights = [];
     var feature = el("div", "feature");
     var pills = el("div", "pills");
     var grid = el("div", "grid");
@@ -261,7 +263,7 @@
         var t = thumb(v, true);
         var play = el("button", "play", "▶ Play · " + v.len);
         play.type = "button";
-        var start = function () { state.playing = true; renderFeature(); };
+        var start = function () { state.playing = true; state.auto = false; renderFeature(); };
         play.addEventListener("click", start);
         t.addEventListener("click", start);
         t.appendChild(play);
@@ -274,10 +276,8 @@
       var next = el("button", "pill", "Up next ›");
       next.type = "button";
       next.addEventListener("click", function () {
-        var l = currentList();
-        state.sel = l[(l.indexOf(state.sel) + 1) % l.length];
-        state.playing = false;
-        renderFeature();
+        state.auto = false;
+        nextHighlight();
       });
       var yt = el("a", "mono", "Watch on YouTube ↗");
       yt.href = "https://www.youtube.com/watch?v=" + v.id;
@@ -290,22 +290,46 @@
       feature.appendChild(info);
     }
 
+    function nextHighlight() {
+      var i = highlights.indexOf(state.sel);
+      state.sel = highlights[(i + 1) % highlights.length];
+      state.playing = false;
+      renderFeature();
+    }
+    setInterval(function () {
+      if (state.auto && !state.playing && !document.hidden && highlights.length > 1) nextHighlight();
+    }, SETTINGS.featureSeconds * 1000);
+
+    // "All" stays put; the channel names loop past it endlessly (pauses on hover).
     function renderPills() {
       pills.textContent = "";
       var by = {};
       all.forEach(function (v) { by[v.channel] = (by[v.channel] || 0) + v.views; });
       var names = Object.keys(by).sort(function (a, b) { return by[b] - by[a]; });
-      ["All"].concat(names).forEach(function (n) {
+      function pill(n, copy) {
         var b = el("button", "pill", n);
         b.type = "button";
         b.setAttribute("aria-pressed", String(state.filter === n));
+        if (copy) { b.tabIndex = -1; b.setAttribute("aria-hidden", "true"); }
         b.addEventListener("click", function () {
           state.filter = n;
           state.limit = SETTINGS.pageSize;
           renderPills();
           renderGrid();
         });
-        pills.appendChild(b);
+        return b;
+      }
+      pills.appendChild(pill("All"));
+      var viewport = el("div", "marquee");
+      var track = el("div", "marquee__track");
+      var setA = el("div", "marquee__set"), setB = el("div", "marquee__set");
+      names.forEach(function (n) { setA.appendChild(pill(n)); setB.appendChild(pill(n, true)); });
+      track.appendChild(setA);
+      track.appendChild(setB);
+      viewport.appendChild(track);
+      pills.appendChild(viewport);
+      requestAnimationFrame(function () {
+        track.style.animationDuration = Math.max(10, setA.offsetWidth / SETTINGS.marqueeSpeed) + "s";
       });
     }
 
@@ -321,6 +345,7 @@
         c.appendChild(el("span", "mono dim", meta(v)));
         c.addEventListener("click", function () {
           state.sel = v;
+          state.auto = false;
           state.playing = false;
           renderFeature();
           feature.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -349,7 +374,10 @@
         var j = Math.floor(Math.random() * (i + 1)), tmp = shuffled[i];
         shuffled[i] = shuffled[j]; shuffled[j] = tmp;
       }
-      state.sel = shuffled[0];
+      var best = {};
+      all.forEach(function (x) { if (!best[x.channel] || x.views > best[x.channel].views) best[x.channel] = x; });
+      highlights = Object.keys(best).map(function (k) { return best[k]; }).sort(function (a, b) { return b.views - a.views; });
+      state.sel = highlights[Math.floor(Math.random() * highlights.length)];
       root.appendChild(feature);
       root.appendChild(pills);
       root.appendChild(grid);
