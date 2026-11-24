@@ -4,7 +4,7 @@
 
 const DEFAULT_PLAYLIST = "PLUp31RSSTci0";
 const CACHE_SECONDS = 300;
-const CATCHUP_HOURS = 6; // how long a big jump in views is spread over
+const CATCHUP_HOURS = 56; // pace of the catch-up: ~95% of a jump is shown within a week (3 x 56h)
 const API = "https://www.googleapis.com/youtube/v3/";
 
 export async function onRequestGet(context) {
@@ -49,7 +49,7 @@ export async function onRequestGet(context) {
 
     // Catch-up: the homepage shows `shown`, climbing at `showRate`. When the real total jumps
     // (a new video, a viral day), the shown number doesn't leap; it climbs faster until it catches
-    // up, closing most of the gap over CATCHUP_HOURS. It never shows more than the real total.
+    // up (about 1/3 of the remaining gap per CATCHUP_HOURS, so ~95% within a week). Never more than real.
     const prevShown = snap && snap.shown != null
       ? Math.min(snap.shown + (snap.showRate || 0) * ((now - Date.parse(snap.updated)) / 1000), total)
       : total;
