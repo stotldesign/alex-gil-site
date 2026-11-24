@@ -17,6 +17,10 @@ To add a new edit, add it to the YouTube playlist. The site picks it up within a
 
 ## Cloudflare settings
 
+If the project is a **Worker** (the default for new projects): `wrangler.jsonc` handles everything. Just add the `YT_API_KEY` secret under Settings → Variables and Secrets. The Worker's name must be `alex-gil-site` (or change `name` in `wrangler.jsonc` to match).
+
+If the project is **Pages**:
+
 - Framework preset: None
 - Build command: (leave empty)
 - Build output directory: `public`

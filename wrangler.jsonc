@@ -1,0 +1,15 @@
+// Cloudflare Workers config. Static files come from public/; /api/* runs src/worker.js.
+// The YT_API_KEY secret is set in the Cloudflare dashboard, never here.
+{
+  "name": "alex-gil-site",
+  "main": "src/worker.js",
+  "compatibility_date": "2025-11-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "YT_PLAYLIST_ID": "PLUp31RSSTci0"
+  }
+}
