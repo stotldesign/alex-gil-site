@@ -54,7 +54,7 @@ export async function loadPlaylist(key, playlist) {
       videos.push({
         id: v.id,
         title: v.snippet.title,
-        channel: v.snippet.channelTitle,
+        channel: tidyName(v.snippet.channelTitle),
         published: v.snippet.publishedAt,
         views: Number(v.statistics.viewCount || 0),
         len: duration(v.contentDetails.duration)
@@ -63,6 +63,12 @@ export async function loadPlaylist(key, playlist) {
   }
   videos.sort((a, b) => b.views - a.views);
   return videos;
+}
+
+// "MADS LUDVIG" → "Mads Ludvig" so all-caps channel names match the rest of the credits
+export function tidyName(name) {
+  if (!name || name !== name.toUpperCase() || !/[A-Z]/.test(name)) return name;
+  return name.toLowerCase().replace(/(^|[\s-])(\p{L})/gu, (m, sep, ch) => sep + ch.toUpperCase());
 }
 
 export function duration(iso) {
