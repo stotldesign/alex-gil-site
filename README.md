@@ -7,6 +7,10 @@ Portfolio site for Alex Gil: video editing, design and photo. Hosted on Cloudfla
 - `public/`: the site itself (plain HTML, CSS and JS, no build step)
   - `index.html`: homepage
   - `video/index.html`: every edit, built from the YouTube playlist
+  - `design/index.html`: catalogue plates (index of projects, one piece at a time)
+  - `photo/index.html`: salon wall (each set hung at mixed sizes)
+  - `assets/work.js`: Design + Photo pages and the full-size viewer
+  - `data/work.json` + `assets/work/`: design and photo images (made by `work/fetch.py`)
   - `assets/style.css`: all styles
   - `assets/app.js`: view counter, credits line and Video page
   - `data/videos.json`: saved snapshot, used only if the live data can't load
@@ -31,7 +35,8 @@ If the project is **Pages**:
 ## Placeholders still to fill in
 
 - `[your@email.com]` in both HTML files
-- `[handle]`: Instagram handle in `index.html`
-- `[alder-cote-site]`: Alder Cote link in `index.html`
-- Design and Photo tiles marked `[project]` / `[photo]`
 - More hero photos: add images to `public/assets/` and extra `<img>` tags inside `.hero`. They cycle every 3 seconds.
+
+## Adding design or photo work
+
+Add entries to `work/manifest.json` (any image URL works) and push. The GitHub Action downloads them, makes web versions and commits them.
