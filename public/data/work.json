@@ -1,0 +1,625 @@
+{
+ "design": [
+  {
+   "slug": "drafts",
+   "title": "Drafts",
+   "items": [
+    {
+     "id": "drafts-01",
+     "src": "/assets/work/design/drafts-01.webp",
+     "full": "/assets/work/design/drafts-01-full.webp",
+     "w": 1200,
+     "h": 1600
+    },
+    {
+     "id": "drafts-02",
+     "src": "/assets/work/design/drafts-02.webp",
+     "full": "/assets/work/design/drafts-02-full.webp",
+     "w": 1400,
+     "h": 1600
+    },
+    {
+     "id": "drafts-03",
+     "src": "/assets/work/design/drafts-03.webp",
+     "full": "/assets/work/design/drafts-03-full.webp",
+     "w": 1225,
+     "h": 1600
+    },
+    {
+     "id": "drafts-04",
+     "src": "/assets/work/design/drafts-04.webp",
+     "full": "/assets/work/design/drafts-04-full.webp",
+     "w": 1230,
+     "h": 1600
+    },
+    {
+     "id": "drafts-05",
+     "src": "/assets/work/design/drafts-05.webp",
+     "full": "/assets/work/design/drafts-05-full.webp",
+     "w": 1401,
+     "h": 1600
+    },
+    {
+     "id": "drafts-06",
+     "src": "/assets/work/design/drafts-06.webp",
+     "full": "/assets/work/design/drafts-06-full.webp",
+     "w": 1399,
+     "h": 1600
+    },
+    {
+     "id": "drafts-07",
+     "src": "/assets/work/design/drafts-07.webp",
+     "full": "/assets/work/design/drafts-07-full.webp",
+     "w": 1440,
+     "h": 1600
+    },
+    {
+     "id": "drafts-08",
+     "src": "/assets/work/design/drafts-08.webp",
+     "full": "/assets/work/design/drafts-08-full.webp",
+     "w": 1457,
+     "h": 1600
+    },
+    {
+     "id": "drafts-09",
+     "src": "/assets/work/design/drafts-09.webp",
+     "full": "/assets/work/design/drafts-09-full.webp",
+     "w": 1200,
+     "h": 1600
+    },
+    {
+     "id": "drafts-10",
+     "src": "/assets/work/design/drafts-10.webp",
+     "full": "/assets/work/design/drafts-10-full.webp",
+     "w": 1600,
+     "h": 1200
+    },
+    {
+     "id": "drafts-11",
+     "src": "/assets/work/design/drafts-11.webp",
+     "full": "/assets/work/design/drafts-11-full.webp",
+     "w": 1407,
+     "h": 1600
+    },
+    {
+     "id": "drafts-12",
+     "src": "/assets/work/design/drafts-12.webp",
+     "full": "/assets/work/design/drafts-12-full.webp",
+     "w": 1404,
+     "h": 1600
+    },
+    {
+     "id": "drafts-13",
+     "src": "/assets/work/design/drafts-13.webp",
+     "full": "/assets/work/design/drafts-13-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "drafts-14",
+     "src": "/assets/work/design/drafts-14.webp",
+     "full": "/assets/work/design/drafts-14-full.webp",
+     "w": 1600,
+     "h": 1118
+    },
+    {
+     "id": "drafts-15",
+     "src": "/assets/work/design/drafts-15.webp",
+     "full": "/assets/work/design/drafts-15-full.webp",
+     "w": 1600,
+     "h": 1440
+    },
+    {
+     "id": "drafts-16",
+     "src": "/assets/work/design/drafts-16.webp",
+     "full": "/assets/work/design/drafts-16-full.webp",
+     "w": 1600,
+     "h": 1440
+    },
+    {
+     "id": "drafts-17",
+     "src": "/assets/work/design/drafts-17.webp",
+     "full": "/assets/work/design/drafts-17-full.webp",
+     "w": 1227,
+     "h": 1600
+    },
+    {
+     "id": "drafts-18",
+     "src": "/assets/work/design/drafts-18.webp",
+     "full": "/assets/work/design/drafts-18-full.webp",
+     "w": 1151,
+     "h": 1600
+    },
+    {
+     "id": "drafts-19",
+     "src": "/assets/work/design/drafts-19.webp",
+     "full": "/assets/work/design/drafts-19-full.webp",
+     "w": 1457,
+     "h": 1600
+    },
+    {
+     "id": "drafts-20",
+     "src": "/assets/work/design/drafts-20.webp",
+     "full": "/assets/work/design/drafts-20-full.webp",
+     "w": 1600,
+     "h": 1440
+    },
+    {
+     "id": "drafts-21",
+     "src": "/assets/work/design/drafts-21.webp",
+     "full": "/assets/work/design/drafts-21-full.webp",
+     "w": 1491,
+     "h": 1600
+    },
+    {
+     "id": "drafts-22",
+     "src": "/assets/work/design/drafts-22.webp",
+     "full": "/assets/work/design/drafts-22-full.webp",
+     "w": 1391,
+     "h": 1600
+    }
+   ]
+  },
+  {
+   "slug": "alder-cote",
+   "title": "Alder Cote",
+   "items": [
+    {
+     "id": "alder-cote-01",
+     "src": "/assets/work/design/alder-cote-01.webp",
+     "full": "/assets/work/design/alder-cote-01-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "alder-cote-02",
+     "src": "/assets/work/design/alder-cote-02.webp",
+     "full": "/assets/work/design/alder-cote-02-full.webp",
+     "w": 1500,
+     "h": 1600
+    },
+    {
+     "id": "alder-cote-03",
+     "src": "/assets/work/design/alder-cote-03.webp",
+     "full": "/assets/work/design/alder-cote-03-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "alder-cote-04",
+     "src": "/assets/work/design/alder-cote-04.webp",
+     "full": "/assets/work/design/alder-cote-04-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "alder-cote-05",
+     "src": "/assets/work/design/alder-cote-05.webp",
+     "full": "/assets/work/design/alder-cote-05-full.webp",
+     "w": 1500,
+     "h": 1600
+    },
+    {
+     "id": "alder-cote-06",
+     "src": "/assets/work/design/alder-cote-06.webp",
+     "full": "/assets/work/design/alder-cote-06-full.webp",
+     "w": 1500,
+     "h": 1600
+    },
+    {
+     "id": "alder-cote-07",
+     "src": "/assets/work/design/alder-cote-07.webp",
+     "full": "/assets/work/design/alder-cote-07-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "alder-cote-08",
+     "src": "/assets/work/design/alder-cote-08.webp",
+     "full": "/assets/work/design/alder-cote-08-full.webp",
+     "w": 1600,
+     "h": 1600
+    }
+   ]
+  },
+  {
+   "slug": "michl",
+   "title": "Michl",
+   "items": [
+    {
+     "id": "michl-01",
+     "src": "/assets/work/design/michl-01.webp",
+     "full": "/assets/work/design/michl-01-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "michl-02",
+     "src": "/assets/work/design/michl-02.webp",
+     "full": "/assets/work/design/michl-02-full.webp",
+     "w": 1600,
+     "h": 1600
+    }
+   ]
+  },
+  {
+   "slug": "aiden-kroll",
+   "title": "Aiden Kroll",
+   "items": [
+    {
+     "id": "aiden-kroll-01",
+     "src": "/assets/work/design/aiden-kroll-01.webp",
+     "full": "/assets/work/design/aiden-kroll-01-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "aiden-kroll-02",
+     "src": "/assets/work/design/aiden-kroll-02.webp",
+     "full": "/assets/work/design/aiden-kroll-02-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "aiden-kroll-03",
+     "src": "/assets/work/design/aiden-kroll-03.webp",
+     "full": "/assets/work/design/aiden-kroll-03-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "aiden-kroll-04",
+     "src": "/assets/work/design/aiden-kroll-04.webp",
+     "full": "/assets/work/design/aiden-kroll-04-full.webp",
+     "w": 1600,
+     "h": 1600
+    }
+   ]
+  },
+  {
+   "slug": "mocha",
+   "title": "Mocha",
+   "items": [
+    {
+     "id": "mocha-01",
+     "src": "/assets/work/design/mocha-01.webp",
+     "full": "/assets/work/design/mocha-01-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "mocha-02",
+     "src": "/assets/work/design/mocha-02.webp",
+     "full": "/assets/work/design/mocha-02-full.webp",
+     "w": 1600,
+     "h": 1600
+    }
+   ]
+  },
+  {
+   "slug": "alt-bloom",
+   "title": "Alt Bloom",
+   "items": [
+    {
+     "id": "alt-bloom-01",
+     "src": "/assets/work/design/alt-bloom-01.webp",
+     "full": "/assets/work/design/alt-bloom-01-full.webp",
+     "w": 1600,
+     "h": 1401
+    },
+    {
+     "id": "alt-bloom-02",
+     "src": "/assets/work/design/alt-bloom-02.webp",
+     "full": "/assets/work/design/alt-bloom-02-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "alt-bloom-03",
+     "src": "/assets/work/design/alt-bloom-03.webp",
+     "full": "/assets/work/design/alt-bloom-03-full.webp",
+     "w": 1333,
+     "h": 1600
+    },
+    {
+     "id": "alt-bloom-04",
+     "src": "/assets/work/design/alt-bloom-04.webp",
+     "full": "/assets/work/design/alt-bloom-04-full.webp",
+     "w": 1143,
+     "h": 1600
+    },
+    {
+     "id": "alt-bloom-05",
+     "src": "/assets/work/design/alt-bloom-05.webp",
+     "full": "/assets/work/design/alt-bloom-05-full.webp",
+     "w": 1280,
+     "h": 1600
+    },
+    {
+     "id": "alt-bloom-06",
+     "src": "/assets/work/design/alt-bloom-06.webp",
+     "full": "/assets/work/design/alt-bloom-06-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "alt-bloom-07",
+     "src": "/assets/work/design/alt-bloom-07.webp",
+     "full": "/assets/work/design/alt-bloom-07-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "alt-bloom-08",
+     "src": "/assets/work/design/alt-bloom-08.webp",
+     "full": "/assets/work/design/alt-bloom-08-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "alt-bloom-09",
+     "src": "/assets/work/design/alt-bloom-09.webp",
+     "full": "/assets/work/design/alt-bloom-09-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "alt-bloom-10",
+     "src": "/assets/work/design/alt-bloom-10.webp",
+     "full": "/assets/work/design/alt-bloom-10-full.webp",
+     "w": 1494,
+     "h": 1600
+    },
+    {
+     "id": "alt-bloom-11",
+     "src": "/assets/work/design/alt-bloom-11.webp",
+     "full": "/assets/work/design/alt-bloom-11-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "alt-bloom-12",
+     "src": "/assets/work/design/alt-bloom-12.webp",
+     "full": "/assets/work/design/alt-bloom-12-full.webp",
+     "w": 1600,
+     "h": 1600
+    }
+   ]
+  },
+  {
+   "slug": "johnny-balik",
+   "title": "Johnny Balik",
+   "items": [
+    {
+     "id": "johnny-balik-01",
+     "src": "/assets/work/design/johnny-balik-01.webp",
+     "full": "/assets/work/design/johnny-balik-01-full.webp",
+     "w": 1600,
+     "h": 1600
+    },
+    {
+     "id": "johnny-balik-02",
+     "src": "/assets/work/design/johnny-balik-02.webp",
+     "full": "/assets/work/design/johnny-balik-02-full.webp",
+     "w": 1600,
+     "h": 1600
+    }
+   ]
+  }
+ ],
+ "photo": [
+  {
+   "slug": "michl",
+   "title": "Michl",
+   "items": [
+    {
+     "id": "michl-01",
+     "src": "/assets/work/photo/michl-01.webp",
+     "full": "/assets/work/photo/michl-01-full.webp",
+     "w": 1600,
+     "h": 1280
+    },
+    {
+     "id": "michl-02",
+     "src": "/assets/work/photo/michl-02.webp",
+     "full": "/assets/work/photo/michl-02-full.webp",
+     "w": 1600,
+     "h": 1280
+    },
+    {
+     "id": "michl-03",
+     "src": "/assets/work/photo/michl-03.webp",
+     "full": "/assets/work/photo/michl-03-full.webp",
+     "w": 1280,
+     "h": 1600
+    },
+    {
+     "id": "michl-04",
+     "src": "/assets/work/photo/michl-04.webp",
+     "full": "/assets/work/photo/michl-04-full.webp",
+     "w": 1600,
+     "h": 1280
+    },
+    {
+     "id": "michl-05",
+     "src": "/assets/work/photo/michl-05.webp",
+     "full": "/assets/work/photo/michl-05-full.webp",
+     "w": 1600,
+     "h": 1280
+    }
+   ]
+  },
+  {
+   "slug": "portraits",
+   "title": "Portraits",
+   "items": [
+    {
+     "id": "portraits-01",
+     "src": "/assets/work/photo/portraits-01.webp",
+     "full": "/assets/work/photo/portraits-01-full.webp",
+     "w": 1200,
+     "h": 1600
+    },
+    {
+     "id": "portraits-02",
+     "src": "/assets/work/photo/portraits-02.webp",
+     "full": "/assets/work/photo/portraits-02-full.webp",
+     "w": 1067,
+     "h": 1600
+    },
+    {
+     "id": "portraits-03",
+     "src": "/assets/work/photo/portraits-03.webp",
+     "full": "/assets/work/photo/portraits-03-full.webp",
+     "w": 1067,
+     "h": 1600
+    },
+    {
+     "id": "portraits-04",
+     "src": "/assets/work/photo/portraits-04.webp",
+     "full": "/assets/work/photo/portraits-04-full.webp",
+     "w": 1067,
+     "h": 1600
+    },
+    {
+     "id": "portraits-05",
+     "src": "/assets/work/photo/portraits-05.webp",
+     "full": "/assets/work/photo/portraits-05-full.webp",
+     "w": 1079,
+     "h": 1600
+    },
+    {
+     "id": "portraits-06",
+     "src": "/assets/work/photo/portraits-06.webp",
+     "full": "/assets/work/photo/portraits-06-full.webp",
+     "w": 1587,
+     "h": 1587
+    },
+    {
+     "id": "portraits-07",
+     "src": "/assets/work/photo/portraits-07.webp",
+     "full": "/assets/work/photo/portraits-07-full.webp",
+     "w": 1200,
+     "h": 1600
+    },
+    {
+     "id": "portraits-08",
+     "src": "/assets/work/photo/portraits-08.webp",
+     "full": "/assets/work/photo/portraits-08-full.webp",
+     "w": 1200,
+     "h": 1600
+    },
+    {
+     "id": "portraits-09",
+     "src": "/assets/work/photo/portraits-09.webp",
+     "full": "/assets/work/photo/portraits-09-full.webp",
+     "w": 1600,
+     "h": 1067
+    },
+    {
+     "id": "portraits-10",
+     "src": "/assets/work/photo/portraits-10.webp",
+     "full": "/assets/work/photo/portraits-10-full.webp",
+     "w": 1600,
+     "h": 1167
+    },
+    {
+     "id": "portraits-11",
+     "src": "/assets/work/photo/portraits-11.webp",
+     "full": "/assets/work/photo/portraits-11-full.webp",
+     "w": 1600,
+     "h": 1167
+    }
+   ]
+  },
+  {
+   "slug": "wide",
+   "title": "Wide",
+   "items": [
+    {
+     "id": "wide-01",
+     "src": "/assets/work/photo/wide-01.webp",
+     "full": "/assets/work/photo/wide-01-full.webp",
+     "w": 1075,
+     "h": 1600
+    },
+    {
+     "id": "wide-02",
+     "src": "/assets/work/photo/wide-02.webp",
+     "full": "/assets/work/photo/wide-02-full.webp",
+     "w": 1075,
+     "h": 1600
+    },
+    {
+     "id": "wide-03",
+     "src": "/assets/work/photo/wide-03.webp",
+     "full": "/assets/work/photo/wide-03-full.webp",
+     "w": 1056,
+     "h": 1600
+    },
+    {
+     "id": "wide-04",
+     "src": "/assets/work/photo/wide-04.webp",
+     "full": "/assets/work/photo/wide-04-full.webp",
+     "w": 1600,
+     "h": 1067
+    },
+    {
+     "id": "wide-05",
+     "src": "/assets/work/photo/wide-05.webp",
+     "full": "/assets/work/photo/wide-05-full.webp",
+     "w": 1600,
+     "h": 1073
+    }
+   ]
+  },
+  {
+   "slug": "self",
+   "title": "Self",
+   "items": [
+    {
+     "id": "self-01",
+     "src": "/assets/work/photo/self-01.webp",
+     "full": "/assets/work/photo/self-01-full.webp",
+     "w": 1194,
+     "h": 1600
+    },
+    {
+     "id": "self-02",
+     "src": "/assets/work/photo/self-02.webp",
+     "full": "/assets/work/photo/self-02-full.webp",
+     "w": 1576,
+     "h": 1600
+    },
+    {
+     "id": "self-03",
+     "src": "/assets/work/photo/self-03.webp",
+     "full": "/assets/work/photo/self-03-full.webp",
+     "w": 1404,
+     "h": 1123
+    },
+    {
+     "id": "self-04",
+     "src": "/assets/work/photo/self-04.webp",
+     "full": "/assets/work/photo/self-04-full.webp",
+     "w": 1379,
+     "h": 1400
+    },
+    {
+     "id": "self-05",
+     "src": "/assets/work/photo/self-05.webp",
+     "full": "/assets/work/photo/self-05-full.webp",
+     "w": 1067,
+     "h": 1600
+    },
+    {
+     "id": "self-06",
+     "src": "/assets/work/photo/self-06.webp",
+     "full": "/assets/work/photo/self-06-full.webp",
+     "w": 1600,
+     "h": 1069
+    }
+   ]
+  }
+ ]
+}
