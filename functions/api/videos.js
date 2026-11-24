@@ -4,6 +4,7 @@
 
 const DEFAULT_PLAYLIST = "PLUp31RSSTci0";
 const CACHE_SECONDS = 300;
+const CATCHUP_HOURS = 6; // how long a big jump in views is spread over
 const API = "https://www.googleapis.com/youtube/v3/";
 
 export async function onRequestGet(context) {
@@ -34,13 +35,27 @@ export async function onRequestGet(context) {
     const total = videos.reduce((s, v) => s + v.views, 0);
     const body = { updated: new Date(now).toISOString(), source: "live", total, rate: 0, videos };
 
+    // Rate = median of the last 12 measurements (~1 hour). A sudden step (a video added, a
+    // viral spike) shows up in one reading and is ignored here; the catch-up below spreads it
+    // out instead. A sustained surge moves the median within ~30 minutes.
+    body.rates = (snap && snap.rates) || [];
     if (snap) {
       const secs = (now - Date.parse(snap.updated)) / 1000;
-      const measured = secs >= 120 && secs <= 6 * 3600 && total >= snap.total ? (total - snap.total) / secs : null;
-      // blend with the previous rate so one quiet or busy refresh doesn't jerk the ticker around
-      body.rate = measured == null ? snap.rate || 0 : snap.rate ? (snap.rate + measured) / 2 : measured;
-      body.rate = Math.round(body.rate * 1000) / 1000;
+      if (secs >= 120 && secs <= 6 * 3600 && total >= snap.total) {
+        body.rates = body.rates.concat((total - snap.total) / secs).slice(-12);
+      }
     }
+    body.rate = Math.round(median(body.rates) * 1000) / 1000;
+
+    // Catch-up: the homepage shows `shown`, climbing at `showRate`. When the real total jumps
+    // (a new video, a viral day), the shown number doesn't leap; it climbs faster until it catches
+    // up, closing most of the gap over CATCHUP_HOURS. It never shows more than the real total.
+    const prevShown = snap && snap.shown != null
+      ? Math.min(snap.shown + (snap.showRate || 0) * ((now - Date.parse(snap.updated)) / 1000), total)
+      : total;
+    const gap = Math.max(0, total - prevShown);
+    body.shown = Math.floor(prevShown);
+    body.showRate = Math.round((body.rate + gap / (CATCHUP_HOURS * 3600)) * 1000) / 1000;
 
     if (kv) {
       context.waitUntil(kv.put(kvKey, JSON.stringify(body)));
@@ -97,6 +112,12 @@ export async function loadPlaylist(key, playlist) {
 export function tidyName(name) {
   if (!name || name !== name.toUpperCase() || !/[A-Z]/.test(name)) return name;
   return name.toLowerCase().replace(/(^|[\s-])(\p{L})/gu, (m, sep, ch) => sep + ch.toUpperCase());
+}
+
+function median(xs) {
+  if (!xs.length) return 0;
+  const s = xs.slice().sort((a, b) => a - b), m = s.length >> 1;
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
 }
 
 export function duration(iso) {

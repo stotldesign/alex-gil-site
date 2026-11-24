@@ -109,22 +109,28 @@
     unitsBtn.addEventListener("click", function () { unit = (unit + 1) % 3; paint(); });
     paint();
 
-    // Ticking: between refreshes, count up at the measured views-per-second rate.
-    // Never counts backwards; re-checks the real number every minute.
-    var base = t, baseAt = Date.now(), rate = 0;
+    // Ticking: the API gives `shown` + `showRate`, which climb toward the real total. A big jump
+    // in real views is spread out (fast climb for a few hours) instead of leaping. Never shows more
+    // than the real total, never counts backwards, and re-checks every minute.
+    var shown = t, showRate = 0, real = t, realRate = 0, at = Date.now(), started = false;
+    function target() {
+      var el = (Date.now() - at) / 1000;
+      return Math.floor(Math.min(shown + showRate * el, real + realRate * el));
+    }
     function apply(d) {
       if (!d || !d.videos || !d.videos.length) return;
-      var real = d.total || total(d.videos);
-      base = Math.max(real, Math.min(t, real + 500)); // keep what's shown if it's only slightly ahead
-      baseAt = d.updated && d.source === "live" ? Math.max(Date.parse(d.updated), Date.now() - 600000) : Date.now();
-      if (base > real) baseAt = Date.now();
-      rate = d.rate > 0 ? d.rate : 0;
-      if (t < base || t > base + 500) t = base;
+      real = d.total || total(d.videos);
+      realRate = d.rate > 0 ? d.rate : 0;
+      shown = d.shown != null ? d.shown : real;
+      showRate = d.showRate > 0 ? d.showRate : realRate;
+      at = d.updated && d.source === "live" ? Math.max(Date.parse(d.updated), Date.now() - 600000) : Date.now();
+      var goal = target();
+      if (!started || t > goal + 500) t = goal; // first load, or stale number far ahead: snap to it
+      started = true;
       paint();
     }
     setInterval(function () {
-      if (!rate) return;
-      var next = Math.floor(base + rate * (Date.now() - baseAt) / 1000);
+      var next = target();
       if (next > t) { t = next; paint(); }
     }, SETTINGS.tickSeconds * 1000);
     setInterval(function () { fetchRaw(true).then(apply).catch(function () {}); }, 60000);
