@@ -1,0 +1,251 @@
+// alex-gil.com — live view counts + video page
+(function () {
+  "use strict";
+
+  var SETTINGS = {
+    avgMinutesWatched: 12,              // used only for the "years of watching" joke
+    collabs: ["Payton King", "Alicia", "Max"], // grouped under one "Collabs" filter
+    pageSize: 12,
+    heroSeconds: 3
+  };
+
+  // ---- data: live from /api/videos, falls back to the saved snapshot ----
+  var dataPromise;
+  function getData() {
+    if (!dataPromise) {
+      dataPromise = fetch("/api/videos")
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .catch(function () { return fetch("/data/videos.json").then(function (r) { return r.json(); }); })
+        .then(function (d) {
+          var v = (d && d.videos) || [];
+          v.sort(function (a, b) { return b.views - a.views; });
+          return v;
+        })
+        .catch(function () { return []; });
+    }
+    return dataPromise;
+  }
+
+  // ---- helpers ----
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function total(v) { return v.reduce(function (s, x) { return s + x.views; }, 0); }
+  function compact(n) {
+    if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1).replace(/\.0$/, "") + "M";
+    if (n >= 1e3) return (n / 1e3).toFixed(n >= 1e4 ? 0 : 1).replace(/\.0$/, "") + "K";
+    return String(n);
+  }
+  function ago(v) {
+    if (!v.published) return v.ago || "";
+    var d = (Date.now() - new Date(v.published).getTime()) / 864e5;
+    if (d < 1) return "today";
+    if (d < 14) return Math.floor(d) + "d ago";
+    if (d < 60) return Math.floor(d / 7) + "w ago";
+    if (d < 365) return Math.floor(d / 30.4) + "mo ago";
+    return Math.floor(d / 365) + "y ago";
+  }
+  function meta(v) { return v.channel + " · " + compact(v.views) + " views · " + ago(v); }
+  function thumb(v, big) {
+    var t = el("div", "thumb");
+    var img = el("img");
+    img.alt = "";
+    img.loading = big ? "eager" : "lazy";
+    img.src = "https://i.ytimg.com/vi/" + v.id + "/" + (big ? "maxresdefault" : "mqdefault") + ".jpg";
+    img.onerror = function () {
+      if (big && img.src.indexOf("hqdefault") < 0) { img.src = "https://i.ytimg.com/vi/" + v.id + "/hqdefault.jpg"; return; }
+      img.remove(); // leave the plain halftone tile instead of a broken-image icon
+    };
+    t.appendChild(img);
+    t.appendChild(el("span", "len", v.len));
+    return t;
+  }
+
+  // ---- homepage ----
+  function initHero() {
+    var hero = $("[data-hero]");
+    if (!hero) return;
+    var imgs = hero.querySelectorAll("img");
+    if (imgs.length < 2) return;
+    var i = 0;
+    setInterval(function () {
+      imgs[i].classList.remove("is-on");
+      i = (i + 1) % imgs.length;
+      imgs[i].classList.add("is-on");
+    }, SETTINGS.heroSeconds * 1000);
+  }
+
+  function initHome() {
+    var num = $("[data-views]");
+    if (!num) return;
+    var unitsBtn = $("[data-units]");
+    var unitsText = $("[data-units-text]");
+    var unit = 0;
+    var t = Number(num.textContent.replace(/\D/g, "")) || 0;
+
+    function units() {
+      var years = Math.round((t * SETTINGS.avgMinutesWatched) / 525960);
+      return [
+        "",
+        "≈ " + years.toLocaleString("en-US") + " years of people watching",
+        "every Angeleno, " + (t / 3800000).toFixed(1) + " times over"
+      ];
+    }
+    function paint() {
+      num.textContent = t.toLocaleString("en-US");
+      unitsText.textContent = units()[unit];
+    }
+    unitsBtn.addEventListener("click", function () { unit = (unit + 1) % 3; paint(); });
+    paint();
+
+    getData().then(function (v) {
+      if (!v.length) return;
+      t = total(v);
+      paint();
+      var count = $("[data-count]");
+      if (count) count.textContent = v.length + " edits →";
+      var credit = $("[data-edited-for]");
+      if (credit) {
+        var by = {};
+        v.forEach(function (x) { by[x.channel] = (by[x.channel] || 0) + x.views; });
+        credit.textContent = "edited for: " + Object.keys(by).sort(function (a, b) { return by[b] - by[a]; }).join(" · ");
+      }
+    });
+  }
+
+  // ---- video page ----
+  function initVideos() {
+    var root = $("[data-videos]");
+    if (!root) return;
+    var state = { sel: null, filter: "All", limit: SETTINGS.pageSize, playing: false };
+    var all = [];
+    var feature = el("div", "feature");
+    var pills = el("div", "pills");
+    var grid = el("div", "grid");
+    var more = el("div", "more");
+
+    function inFilter(v) {
+      if (state.filter === "All") return true;
+      if (state.filter === "Collabs") return SETTINGS.collabs.indexOf(v.channel) >= 0;
+      return v.channel === state.filter;
+    }
+
+    function renderFeature() {
+      var v = state.sel;
+      feature.textContent = "";
+      var media = el("div", "feature__media");
+      if (state.playing) {
+        var f = el("iframe");
+        f.src = "https://www.youtube-nocookie.com/embed/" + v.id + "?autoplay=1&rel=0";
+        f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+        f.allowFullscreen = true;
+        f.title = v.title;
+        media.appendChild(f);
+      } else {
+        var t = thumb(v, true);
+        var play = el("button", "play", "▶ Play · " + v.len);
+        play.type = "button";
+        var start = function () { state.playing = true; renderFeature(); };
+        play.addEventListener("click", start);
+        t.addEventListener("click", start);
+        t.appendChild(play);
+        media.appendChild(t);
+      }
+      var info = el("div", "feature__info");
+      info.appendChild(el("h1", "feature__title", v.title));
+      info.appendChild(el("span", "mono", meta(v)));
+      var row = el("div", "feature__row");
+      var next = el("button", "pill", "Up next ›");
+      next.type = "button";
+      next.addEventListener("click", function () {
+        state.sel = all[(all.indexOf(state.sel) + 1) % all.length];
+        state.playing = false;
+        renderFeature();
+      });
+      var yt = el("a", "mono", "Watch on YouTube ↗");
+      yt.href = "https://www.youtube.com/watch?v=" + v.id;
+      yt.target = "_blank";
+      yt.rel = "noopener";
+      row.appendChild(next);
+      row.appendChild(yt);
+      info.appendChild(row);
+      feature.appendChild(media);
+      feature.appendChild(info);
+    }
+
+    function renderPills() {
+      pills.textContent = "";
+      var by = {};
+      all.forEach(function (v) {
+        if (SETTINGS.collabs.indexOf(v.channel) < 0) by[v.channel] = (by[v.channel] || 0) + v.views;
+      });
+      var names = Object.keys(by).sort(function (a, b) { return by[b] - by[a]; });
+      if (all.some(function (v) { return SETTINGS.collabs.indexOf(v.channel) >= 0; })) names.splice(2, 0, "Collabs");
+      ["All"].concat(names).forEach(function (n) {
+        var b = el("button", "pill", n);
+        b.type = "button";
+        b.setAttribute("aria-pressed", String(state.filter === n));
+        b.addEventListener("click", function () {
+          state.filter = n;
+          state.limit = SETTINGS.pageSize;
+          renderPills();
+          renderGrid();
+        });
+        pills.appendChild(b);
+      });
+    }
+
+    function renderGrid() {
+      grid.textContent = "";
+      more.textContent = "";
+      var list = all.filter(inFilter);
+      list.slice(0, state.limit).forEach(function (v) {
+        var c = el("button", "card");
+        c.type = "button";
+        c.appendChild(thumb(v, false));
+        c.appendChild(el("span", "card__title", v.title));
+        c.appendChild(el("span", "mono dim", meta(v)));
+        c.addEventListener("click", function () {
+          state.sel = v;
+          state.playing = false;
+          renderFeature();
+          feature.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+        grid.appendChild(c);
+      });
+      if (list.length > state.limit) {
+        var b = el("button", "pill", "Show more (" + (list.length - state.limit) + ")");
+        b.type = "button";
+        b.addEventListener("click", function () { state.limit += SETTINGS.pageSize; renderGrid(); });
+        more.appendChild(b);
+      }
+    }
+
+    getData().then(function (v) {
+      root.textContent = "";
+      if (!v.length) {
+        var a = el("a", "mono", "See every edit on YouTube ↗");
+        a.href = "https://www.youtube.com/playlist?list=PLUp31RSSTci0";
+        root.appendChild(a);
+        return;
+      }
+      all = v;
+      state.sel = all[0];
+      root.appendChild(feature);
+      root.appendChild(pills);
+      root.appendChild(grid);
+      root.appendChild(more);
+      renderFeature();
+      renderPills();
+      renderGrid();
+    });
+  }
+
+  initHero();
+  initHome();
+  initVideos();
+})();

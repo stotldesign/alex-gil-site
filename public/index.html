@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alex Gil — video editor</title>
+<meta name="description" content="Alex Gil edits YouTube videos for Jordan Huxhold, Payton King, Mads Ludvig and more. Also design and photo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<div class="page">
+<main class="frame">
+
+  <header class="top">
+    <a class="top__name" href="/">Alex Gil</a>
+    <a class="top__mail" href="mailto:[your@email.com]">Email me</a>
+  </header>
+
+  <div class="home">
+    <div class="home__left">
+      <!-- Hero: add more halftone photos as extra <img> tags; they cycle every 3s -->
+      <div class="hero" data-hero>
+        <img class="is-on" src="/assets/hero-1.jpg" alt="Halftone portrait, face hidden behind a hand">
+      </div>
+
+      <div class="views">
+        <div class="views__line">
+          <span class="views__num" data-views>9,502,400</span>
+          <span class="views__label">views</span>
+        </div>
+        <button class="views__units" data-units type="button">
+          <span data-units-text></span>
+          <span class="mono">in other units ↻</span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="home__right" aria-label="Work">
+      <a class="row" href="/video/">
+        <span class="row__label">Video</span>
+        <span class="mono" data-count>86 edits →</span>
+      </a>
+
+      <details>
+        <summary class="row"><span class="row__label">Design</span><span class="mono"></span></summary>
+        <div class="drawer tiles">
+          <div class="tile">Take What I Have — logo</div>
+          <div class="tile">[project]</div>
+          <div class="tile">[project]</div>
+        </div>
+      </details>
+
+      <details>
+        <summary class="row"><span class="row__label">Photo</span><span class="mono"></span></summary>
+        <div class="drawer tiles">
+          <div class="tile tile--tall"><img src="/assets/hero-1.jpg" alt="Halftone portrait"></div>
+          <div class="tile tile--tall">[photo]</div>
+          <div class="tile tile--tall">[photo]</div>
+        </div>
+      </details>
+
+      <details>
+        <summary class="row"><span class="row__label row__label--italic">About</span><span class="mono"></span></summary>
+        <div class="drawer about">
+          <p>I edit YouTube videos that are actually funny: timing, cuts and the dumb little details that make a 40-minute ramble feel like 8. Also design and photo.</p>
+          <p class="mono dim">Premiere · After Effects · Blender · Photoshop</p>
+          <a class="mono" href="https://[alder-cote-site]">Sounds → Alder Cote ↗</a>
+        </div>
+      </details>
+
+      <footer class="foot">
+        <span class="mono dim" data-edited-for>edited for: Jordan Huxhold · Payton King · Mads Ludvig · Alicia · Max · Freja Børre Olsen · Spencer Phipps</span>
+        <a class="foot__ig" href="https://instagram.com/[handle]">ig</a>
+      </footer>
+    </nav>
+  </div>
+
+</main>
+</div>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>
