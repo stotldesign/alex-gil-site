@@ -59,16 +59,22 @@
     return Math.floor(d / 365) + "y ago";
   }
   function meta(v) { return v.channel + " · " + compact(v.views) + " views · " + ago(v); }
+  // YouTube doesn't make a maxres thumbnail for every video; when it's missing it serves a
+  // tiny 120x90 gray placeholder (sometimes with a 404). Step down until a real one loads.
   function thumb(v, big) {
     var t = el("div", "thumb");
     var img = el("img");
+    var sizes = big ? ["maxresdefault", "sddefault", "hqdefault", "mqdefault"] : ["mqdefault", "hqdefault"];
+    var i = 0;
+    function next() {
+      if (i >= sizes.length) { img.remove(); return; } // keep the plain tile, no broken icon
+      img.src = "https://i.ytimg.com/vi/" + v.id + "/" + sizes[i++] + ".jpg";
+    }
     img.alt = "";
     img.loading = big ? "eager" : "lazy";
-    img.src = "https://i.ytimg.com/vi/" + v.id + "/" + (big ? "maxresdefault" : "mqdefault") + ".jpg";
-    img.onerror = function () {
-      if (big && img.src.indexOf("hqdefault") < 0) { img.src = "https://i.ytimg.com/vi/" + v.id + "/hqdefault.jpg"; return; }
-      img.remove(); // leave the plain halftone tile instead of a broken-image icon
-    };
+    img.onerror = next;
+    img.onload = function () { if (img.naturalWidth <= 120) next(); };
+    next();
     t.appendChild(img);
     t.appendChild(el("span", "len", v.len));
     return t;

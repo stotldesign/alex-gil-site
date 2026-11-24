@@ -72,13 +72,12 @@ a.credit:hover { color: var(--red); }
 a.credit:hover .credit__pic { filter: none; }
 .foot__ig { font-size: 24px; }
 
-/* video thumbnails: black and white with film grain, full color on hover */
+/* video thumbnails: black and white with scan lines, full color on hover */
 .thumb { position: relative; overflow: hidden; border-radius: 12px; aspect-ratio: 16 / 9; background: var(--tint); }
 .thumb img { display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15); transition: filter .25s, transform .3s; }
 .thumb::after {
-  content: ""; position: absolute; inset: -50%; pointer-events: none; opacity: .95; mix-blend-mode: overlay; transition: opacity .25s;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncR type='linear' slope='3' intercept='-1'/><feFuncG type='linear' slope='3' intercept='-1'/><feFuncB type='linear' slope='3' intercept='-1'/></feComponentTransfer></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  background-size: 180px 180px;
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .55; transition: opacity .25s;
+  background: repeating-linear-gradient(to bottom, rgba(0,0,0,.75) 0 1px, transparent 1px 3px);
 }
 .card:hover .thumb img, .card:focus-visible .thumb img, .feature__media .thumb:hover img { filter: none; transform: scale(1.03); }
 .card:hover .thumb::after, .card:focus-visible .thumb::after, .feature__media .thumb:hover::after { opacity: 0; }
