@@ -4,7 +4,6 @@
 
   var SETTINGS = {
     avgMinutesWatched: 12,              // used only for the "years of watching" joke
-    collabs: ["Payton King", "Alicia", "Max"], // grouped under one "Collabs" filter
     pageSize: 12,
     heroSeconds: 3,
     creditsShown: 4,                    // channels named in the "edited for" line
@@ -142,7 +141,7 @@
     });
     if (list.length > show) {
       node.appendChild(el("span", "credit__sep", "·"));
-      var more = el("a", "credit credit--more", "+" + (list.length - show) + " more");
+      var more = el("a", "credit credit--more", "+ more");
       more.href = "/video/";
       node.appendChild(more);
     }
@@ -236,7 +235,6 @@
 
     function inFilter(v) {
       if (state.filter === "All") return true;
-      if (state.filter === "Collabs") return SETTINGS.collabs.indexOf(v.channel) >= 0;
       return v.channel === state.filter;
     }
 
@@ -286,11 +284,8 @@
     function renderPills() {
       pills.textContent = "";
       var by = {};
-      all.forEach(function (v) {
-        if (SETTINGS.collabs.indexOf(v.channel) < 0) by[v.channel] = (by[v.channel] || 0) + v.views;
-      });
+      all.forEach(function (v) { by[v.channel] = (by[v.channel] || 0) + v.views; });
       var names = Object.keys(by).sort(function (a, b) { return by[b] - by[a]; });
-      if (all.some(function (v) { return SETTINGS.collabs.indexOf(v.channel) >= 0; })) names.splice(2, 0, "Collabs");
       ["All"].concat(names).forEach(function (n) {
         var b = el("button", "pill", n);
         b.type = "button";
