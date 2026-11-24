@@ -7,7 +7,7 @@
     collabs: ["Payton King", "Alicia", "Max"], // grouped under one "Collabs" filter
     pageSize: 12,
     heroSeconds: 3,
-    tickSeconds: 3.25                   // how often the view counter steps up (by however many real views came in)
+    tickSeconds: 2                      // how often the view counter steps up (by however many real views came in)
   };
 
   // ---- data: live from /api/videos, falls back to the saved snapshot ----
