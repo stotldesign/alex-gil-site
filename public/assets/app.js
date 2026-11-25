@@ -159,7 +159,7 @@
   function initHero() {
     var hero = $("[data-hero]");
     if (!hero) return;
-    var imgs = hero.querySelectorAll("img");
+    var imgs = hero.querySelectorAll(":scope > img");
     if (imgs.length < 2) return;
     var i = 0;
     setInterval(function () {
