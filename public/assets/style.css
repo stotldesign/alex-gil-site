@@ -361,3 +361,15 @@ html[data-vt="wipe"]::view-transition-new(root) { animation: vt-wipe .6s cubic-b
   .views { margin-top: -5px; }
   .views__meta { padding-top: 2px; }
 }
+
+/* phones, home only: the whole page fits the visible screen (above Safari's bar); the photo takes whatever height is left */
+@media (max-width: 600px) {
+  .page:has(.home) { height: 100svh; min-height: 0; padding: 8px; display: flex; }
+  .page:has(.home):has(.about-panel:not([hidden])) { height: auto; min-height: 100svh; }
+  .page:has(.home) .frame { flex: 1; min-height: 0; width: 100%; display: flex; flex-direction: column; }
+  .home { flex: 1; min-height: 0; flex-direction: column; flex-wrap: nowrap; }
+  .home__left { flex: 1 1 auto; min-height: 0; }
+  .home__right { flex: none; }
+  .hero { flex: 1 1 0; min-height: 90px; aspect-ratio: auto; }
+  .hero:has(.about-panel:not([hidden])) { flex: none; }
+}
