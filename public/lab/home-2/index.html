@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home 2 (preview) — Alex Gil</title>
+<meta name="description" content="Alex Gil edits YouTube videos for Jordan Huxhold, Payton King, Mads Ludvig and more. Also design and photo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+/* preview overrides */
+.home--even { align-items: stretch; }
+.home--even .home__left { gap: 0; }
+.home__right--fill { display: flex; flex-direction: column; }
+.home__right--fill > .row { flex: 1; align-items: center; }
+.home__right--fill > details { flex: 1; display: flex; flex-direction: column; }
+.home__right--fill > details > summary { flex: 1; align-items: center; }
+.band { border-top: var(--rule); margin-top: 18px; padding-top: 6px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 4px 24px; }
+.band__line { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.band__num { font-size: clamp(64px, 11.5vw, 150px) !important; letter-spacing: -0.05em !important; line-height: 1 !important; }
+.band__label { font-size: clamp(16px, 2vw, 24px) !important; }
+.band__units { width: auto !important; padding-bottom: 14px !important; gap: 16px !important; }
+.foot--full { margin-top: 14px; }
+.band--top { margin-top: 10px; border-top: none; padding-top: 0; border-bottom: var(--rule); padding-bottom: 8px; margin-bottom: 4px; }
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<div class="page page--center">
+<main class="frame">
+
+  <header class="top">
+    <a class="top__name" href="/">Alex Gil</a>
+    <a class="top__mail" href="mailto:[your@email.com]">Email me</a>
+  </header>
+
+  <div class="band band--top">
+    <div class="band__line">
+      <span class="views__num band__num" data-views>9,502,400</span>
+      <span class="views__label band__label">views</span>
+    </div>
+    <button class="views__units band__units" data-units type="button">
+      <span data-units-text></span>
+      <span class="mono">in other units ↻</span>
+    </button>
+  </div>
+  <div class="home home--even">
+    <div class="home__left">
+      <div class="hero" data-hero>
+        <img class="is-on" src="/assets/hero-1.jpg" alt="Halftone photo of a figure in a doorway, looking at a phone">
+        <img src="/assets/hero-2.jpg" alt="Halftone portrait, face hidden behind a hand" loading="lazy">
+        <img src="/assets/hero-3.jpg" alt="Halftone photo with hand-drawn line diagrams over it" loading="lazy">
+        <img src="/assets/hero-4.jpg" alt="Halftone photo of a figure at a table, warped by motion" loading="lazy">
+      </div>
+
+    </div>
+
+    <nav class="home__right home__right--fill" aria-label="Work">
+      <a class="row" href="/video/">
+        <span class="row__label">Video</span>
+        <span class="mono" data-count>86 edits →</span>
+      </a>
+
+      <a class="row" href="/design/">
+        <span class="row__label">Design</span>
+        <span class="mono">7 projects →</span>
+      </a>
+
+      <a class="row" href="/photo/">
+        <span class="row__label">Photo</span>
+        <span class="mono">4 sets →</span>
+      </a>
+
+      <details>
+        <summary class="row"><span class="row__label row__label--italic">About</span><span class="mono"></span></summary>
+        <div class="drawer about">
+          <p>I edit YouTube videos that are actually funny: timing, cuts and the dumb little details that make a 40-minute ramble feel like 8. Also design and photo.</p>
+          <p class="mono dim">Premiere · After Effects · Blender · Photoshop</p>
+          <a class="mono" href="https://aldercote.online/">Sounds → Alder Cote ↗</a>
+        </div>
+      </details>
+
+    </nav>
+  </div>
+  <footer class="foot foot--full">
+        <span class="mono dim" data-edited-for>edited for: Jordan Huxhold · Payton King · Mads Ludvig · Alicia · Max · Freja Børre Olsen · Spencer Phipps</span>
+        <a class="foot__ig" href="https://www.instagram.com/alex.mp4/">ig</a>
+        </footer>
+
+</main>
+</div>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>

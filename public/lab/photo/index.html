@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Photo layouts (preview) — Alex Gil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+.lab-tabs { display: flex; gap: 8px; flex-wrap: wrap; padding: 14px 0; border-bottom: var(--rule); }
+.lab-note { margin: 10px 0 0; }
+/* A: contact sheet */
+.roll { padding: 22px 0; border-top: var(--rule); }
+.roll:first-child { border-top: none; }
+.roll__head { margin: 0 0 8px; }
+.roll__strip { background: #141413; padding: 10px; border-radius: 3px; display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px 8px; }
+.frame-btn { all: unset; cursor: pointer; display: flex; flex-direction: column; gap: 4px; }
+.frame-btn img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+.frame-btn span { font: 400 10px var(--mono); color: #b9b6aa; }
+.frame-btn[aria-current="true"] img { outline: 2px solid var(--red); outline-offset: 2px; border-radius: 40%; }
+.roll__print { margin-top: 14px; display: flex; justify-content: center; background: #efece3; padding: 18px; }
+.roll__print img { max-height: 70vh; max-width: 100%; display: block; box-shadow: 0 2px 10px rgba(0,0,0,.12); }
+/* B: projector */
+.proj { background: #141413; color: #d3d1c7; border-radius: 6px; margin-top: 16px; padding: 18px; }
+.proj__screen { height: 68vh; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.proj__screen img { max-height: 100%; max-width: 100%; display: block; transition: opacity .45s; }
+.proj__bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding-top: 12px; font: 400 12px var(--mono); }
+.proj__sets button { all: unset; cursor: pointer; margin-left: 14px; color: #888780; }
+.proj__sets button[aria-pressed="true"] { color: #f7f5ee; text-decoration: underline; }
+/* C: corridor */
+.cor { padding: 20px 0; border-top: var(--rule); }
+.cor:first-child { border-top: none; }
+.cor__row { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: thin; }
+.cor__row img { height: 58vh; width: auto; display: block; flex: 0 0 auto; }
+/* D: editorial */
+.ed { padding: 28px 0 10px; border-top: var(--rule); }
+.ed:first-child { border-top: none; }
+.ed__title { font-size: clamp(40px, 6vw, 72px); font-weight: 500; letter-spacing: -0.03em; margin: 0 0 18px; }
+.ed__flow { display: flex; flex-wrap: wrap; gap: 18px; }
+.ed__flow img { display: block; height: auto; }
+/* E: table */
+.table { position: relative; height: 1100px; background: #efece3; margin-top: 16px; border-radius: 6px; overflow: hidden; touch-action: none; }
+.print { position: absolute; background: #fff; padding: 9px 9px 26px; box-shadow: 0 6px 18px rgba(0,0,0,.18); cursor: grab; user-select: none; }
+.print img { display: block; pointer-events: none; }
+.print:active { cursor: grabbing; }
+@media (max-width: 640px) { .cor__row img { height: 44vh; } .table { height: 900px; } .proj__screen { height: 52vh; } }
+</style>
+</head>
+<body>
+<div class="page">
+<main class="frame">
+  <header class="top">
+    <a class="top__name" href="/">Alex Gil</a>
+    <span class="top__title">Photo</span>
+    <span class="mono dim">layout preview</span>
+  </header>
+  <div class="lab-tabs" data-tabs></div>
+  <p class="mono dim lab-note" data-note></p>
+  <section data-stage></section>
+</main>
+</div>
+<script>
+(function () {
+  var LAYOUTS = [
+    ["a", "A · Contact sheet", "Each set is a roll: frames in a black strip, tap one to print it big."],
+    ["b", "B · Slide projector", "One photo at a time in a dark room, changing every 4 seconds. Tap to advance."],
+    ["c", "C · Sideways corridor", "Each set is a row of big photos you scroll sideways."],
+    ["d", "D · Editorial column", "Big photos down the page, changing size and side, like a magazine."],
+    ["e", "E · Prints on a table", "Loose prints you can drag around. Tap one to see it full size."]
+  ];
+  var tabs = document.querySelector("[data-tabs]"), note = document.querySelector("[data-note]"), stage = document.querySelector("[data-stage]");
+  var sets = [], timer = null;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function img(it, cls) { var i = el("img", cls); i.src = it.src; i.alt = ""; i.loading = "lazy"; return i; }
+
+  function A() {
+    sets.forEach(function (s, k) {
+      var r = el("section", "roll");
+      r.appendChild(el("p", "mono roll__head", "ROLL 0" + (k + 1) + " · " + s.title.toUpperCase() + " · " + s.items.length + " FRAMES"));
+      var strip = el("div", "roll__strip"), print = el("div", "roll__print"), big = img(s.items[0]);
+      big.loading = "eager";
+      print.appendChild(big);
+      s.items.forEach(function (it, j) {
+        var b = el("button", "frame-btn");
+        b.setAttribute("aria-current", String(j === 0));
+        b.appendChild(img(it));
+        b.appendChild(el("span", null, (12 + Math.floor(j / 2)) + (j % 2 ? "A" : "")));
+        b.onclick = function () {
+          big.src = it.src;
+          strip.querySelectorAll(".frame-btn").forEach(function (x) { x.setAttribute("aria-current", "false"); });
+          b.setAttribute("aria-current", "true");
+        };
+        strip.appendChild(b);
+      });
+      r.append(strip, print);
+      stage.appendChild(r);
+    });
+  }
+  function B() {
+    var box = el("div", "proj"), screen = el("div", "proj__screen"), pic = el("img"), bar = el("div", "proj__bar"), count = el("span"), setsEl = el("span", "proj__sets");
+    screen.appendChild(pic); bar.append(count, setsEl); box.append(screen, bar); stage.appendChild(box);
+    var si = 0, i = 0;
+    function show() {
+      var s = sets[si]; pic.style.opacity = 0;
+      setTimeout(function () { pic.src = s.items[i].src; pic.onload = function () { pic.style.opacity = 1; }; }, 250);
+      count.textContent = s.title + " · " + String(i + 1).padStart(2, "0") + " / " + s.items.length;
+      setsEl.querySelectorAll("button").forEach(function (b, k) { b.setAttribute("aria-pressed", String(k === si)); });
+    }
+    function next() { i++; if (i >= sets[si].items.length) { i = 0; si = (si + 1) % sets.length; } show(); }
+    sets.forEach(function (s, k) { var b = el("button", null, s.title); b.onclick = function () { si = k; i = 0; show(); }; setsEl.appendChild(b); });
+    screen.onclick = next;
+    timer = setInterval(next, 4000);
+    show();
+  }
+  function C() {
+    sets.forEach(function (s) {
+      var c = el("section", "cor"); c.appendChild(el("p", "mono", s.title + " → " + s.items.length + " photographs"));
+      var row = el("div", "cor__row"); s.items.forEach(function (it) { row.appendChild(img(it)); });
+      c.appendChild(row); stage.appendChild(c);
+    });
+  }
+  function D() {
+    var widths = ["70%", "42%", "calc(50% - 9px)", "calc(50% - 9px)", "86%", "38%", "58%"];
+    var shifts = ["0", "auto", "0", "0", "auto", "12%", "auto"];
+    sets.forEach(function (s) {
+      var e = el("section", "ed"); e.appendChild(el("h2", "ed__title", s.title));
+      var flow = el("div", "ed__flow");
+      s.items.forEach(function (it, j) { var i = img(it); i.style.width = widths[j % widths.length]; i.style.marginLeft = shifts[j % shifts.length]; flow.appendChild(i); });
+      e.appendChild(flow); stage.appendChild(e);
+    });
+  }
+  function E() {
+    var t = el("div", "table"); stage.appendChild(t);
+    var all = []; sets.forEach(function (s) { s.items.forEach(function (it) { all.push(it); }); });
+    var W = t.clientWidth, H = t.clientHeight, z = 1;
+    all.forEach(function (it, j) {
+      var p = el("div", "print"), w = W < 600 ? 120 : 190 + (j * 37 % 70);
+      var i = img(it); i.style.width = w + "px"; p.appendChild(i);
+      var cols = Math.max(2, Math.floor(W / 230)), cw = W / cols, rows = Math.ceil(all.length / cols), rh = (H - 60) / rows;
+      var x = (j % cols) * cw + ((j * 53) % 40) - 10, y = Math.floor(j / cols) * rh + ((j * 71) % 50) - 10;
+      x = Math.max(4, Math.min(W - w - 24, x)); y = Math.max(4, y);
+      p.style.left = x + "px"; p.style.top = y + "px"; p.style.transform = "rotate(" + ((j * 47 % 17) - 8) + "deg)";
+      var drag = null;
+      p.addEventListener("pointerdown", function (e) { p.setPointerCapture(e.pointerId); p.style.zIndex = ++z; drag = { x: e.clientX, y: e.clientY, l: p.offsetLeft, t: p.offsetTop, moved: false }; });
+      p.addEventListener("pointermove", function (e) { if (!drag) return; var dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.abs(dx) + Math.abs(dy) > 4) drag.moved = true; p.style.left = drag.l + dx + "px"; p.style.top = drag.t + dy + "px"; });
+      p.addEventListener("pointerup", function () { if (drag && !drag.moved) window.open(it.full, "_blank"); drag = null; });
+      t.appendChild(p);
+    });
+  }
+  var RENDER = { a: A, b: B, c: C, d: D, e: E };
+  function go(key) {
+    clearInterval(timer); stage.textContent = "";
+    LAYOUTS.forEach(function (L) { var b = tabs.querySelector('[data-k="' + L[0] + '"]'); if (b) b.setAttribute("aria-pressed", String(L[0] === key)); if (L[0] === key) note.textContent = L[2]; });
+    history.replaceState(null, "", "#" + key);
+    RENDER[key]();
+  }
+  LAYOUTS.forEach(function (L) { var b = el("button", "pill", L[1]); b.type = "button"; b.dataset.k = L[0]; b.onclick = function () { go(L[0]); }; tabs.appendChild(b); });
+  fetch("/data/work.json").then(function (r) { return r.json(); }).then(function (d) {
+    sets = d.photo;
+    var k = (location.hash || "#a").slice(1); go(RENDER[k] ? k : "a");
+  });
+})();
+</script>
+</body>
+</html>
