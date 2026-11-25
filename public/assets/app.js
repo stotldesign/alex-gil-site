@@ -131,8 +131,8 @@
     var show = SETTINGS.creditsShown;
     node.textContent = "";
     node.appendChild(document.createTextNode("edited for: "));
-    list.slice(0, show).forEach(function (c, i) {
-      if (i) node.appendChild(el("span", "credit__sep", "·"));
+    var shown = list.slice(0, show), hasMore = list.length > show;
+    shown.forEach(function (c, i) {
       var item = el(c.url ? "a" : "span", "credit");
       if (c.url) { item.href = c.url; item.target = "_blank"; item.rel = "noopener"; }
       if (c.avatar) {
@@ -145,10 +145,14 @@
         item.appendChild(img);
       }
       item.appendChild(document.createTextNode(c.name));
-      node.appendChild(item);
+      // the dot is glued to the name before it, so if the line wraps it stays with that name
+      var group = el("span", "credit-group");
+      group.appendChild(item);
+      if (i < shown.length - 1 || hasMore) group.appendChild(el("span", "credit__sep", "·"));
+      node.appendChild(group);
+      node.appendChild(document.createTextNode(" "));
     });
-    if (list.length > show) {
-      node.appendChild(el("span", "credit__sep", "·"));
+    if (hasMore) {
       var more = el("a", "credit credit--more", "+ more");
       more.href = "/video/";
       node.appendChild(more);
@@ -184,13 +188,8 @@
       var list = [
         "views",
         "≈ " + years.toLocaleString("en-US") + " years of people watching",
-        "≈ " + Math.round(t / 70000).toLocaleString("en-US") + " sold-out SoFi Stadiums",
-        "phones stacked " + Math.round(t * 0.0078 / 1000).toLocaleString("en-US") + " km high (space starts at 100)"
+        "≈ " + Math.round(t / 70000).toLocaleString("en-US") + " sold-out SoFi Stadiums"
       ];
-      if (firstUpload) {
-        var secs = (Date.now() - firstUpload) / 1000;
-        list.push("one view every " + (secs / t).toFixed(1) + " seconds, since " + new Date(firstUpload).getFullYear());
-      }
       return list;
     }
     var roll = rollingNumber(num);
