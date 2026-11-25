@@ -13,12 +13,12 @@
 
 </head>
 <body>
-<div class="page page--center">
+<div class="page">
 <main class="frame">
 
   <header class="top">
     <a class="top__name" href="/">Alex Gil</a>
-    <a class="top__mail" href="mailto:[your@email.com]">Email me</a>
+    <a class="top__mail" href="mailto:atg2.dali@gmail.com" data-email="atg2.dali@gmail.com" title="Click to copy atg2.dali@gmail.com">Email me</a>
   </header>
 
   <div class="home">
@@ -29,6 +29,12 @@
         <img src="/assets/hero-2.jpg" alt="Halftone portrait, face hidden behind a hand" loading="lazy">
         <img src="/assets/hero-3.jpg" alt="Halftone photo with hand-drawn line diagrams over it" loading="lazy">
         <img src="/assets/hero-4.jpg" alt="Halftone photo of a figure at a table, warped by motion" loading="lazy">
+        <!-- About: shows over the photo, same box, so nothing on the page moves -->
+        <div class="about-panel" id="about" data-about hidden>
+          <p class="about-panel__text">I edit YouTube videos for creators who are funnier than they look on paper, and I make sure that comes through. Cuts, timing, captions, sound, the occasional 3D thing.</p>
+          <p class="about-panel__text">I also design covers and merch, take photos, and make music as <a href="https://aldercote.online/">Alder Cote</a>.</p>
+          <p class="mono dim">Premiere · After Effects · Blender · Photoshop</p>
+        </div>
       </div>
 
       <div class="views">
@@ -44,27 +50,23 @@
     <nav class="home__right" aria-label="Work">
       <a class="row" href="/video/">
         <span class="row__label" data-vt-name="t-video">Video</span>
-        <span class="mono" data-count>86 edits →</span>
+        <span class="row__arrow" aria-hidden="true">→</span>
       </a>
 
       <a class="row" href="/design/">
         <span class="row__label" data-vt-name="t-design">Design</span>
-        <span class="mono">7 projects →</span>
+        <span class="row__arrow" aria-hidden="true">→</span>
       </a>
 
       <a class="row" href="/photo/">
         <span class="row__label" data-vt-name="t-photo">Photo</span>
-        <span class="mono">4 sets →</span>
+        <span class="row__arrow" aria-hidden="true">→</span>
       </a>
 
-      <details>
-        <summary class="row"><span class="row__label row__label--italic">About</span><span class="mono"></span></summary>
-        <div class="drawer about">
-          <p>I edit YouTube videos that are actually funny: timing, cuts and the dumb little details that make a 40-minute ramble feel like 8. Also design and photo.</p>
-          <p class="mono dim">Premiere · After Effects · Blender · Photoshop</p>
-          <a class="mono" href="https://aldercote.online/">Sounds → Alder Cote ↗</a>
-        </div>
-      </details>
+      <button class="row row--button" type="button" data-about-toggle aria-expanded="false" aria-controls="about">
+        <span class="row__label row__label--italic">About</span>
+        <span class="row__arrow" data-about-icon aria-hidden="true">+</span>
+      </button>
 
       <div class="foot">
         <span class="mono dim" data-edited-for>edited for: Jordan Huxhold · Payton King · Mads Ludvig · Alicia · Max · Freja Børre Olsen · Spencer Phipps</span>
@@ -77,5 +79,6 @@
 </main>
 </div>
 <script src="/assets/app.js" defer></script>
+<script src="/assets/site.js" defer></script>
 </body>
 </html>

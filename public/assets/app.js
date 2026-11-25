@@ -177,20 +177,28 @@
     var unit = 0;
     var t = Number(num.textContent.replace(/\D/g, "")) || 0;
 
+    // Tap "views ↻" to cycle through these. All worked out from the real total.
+    var firstUpload = 0; // filled in from the playlist: date of the oldest edit
     function units() {
       var years = Math.round((t * SETTINGS.avgMinutesWatched) / 525960);
-      return [
+      var list = [
         "views",
         "≈ " + years.toLocaleString("en-US") + " years of people watching",
-        "every Angeleno, " + (t / 3800000).toFixed(1) + " times over"
+        "≈ " + Math.round(t / 70000).toLocaleString("en-US") + " sold-out SoFi Stadiums",
+        "phones stacked " + Math.round(t * 0.0078 / 1000).toLocaleString("en-US") + " km high (space starts at 100)"
       ];
+      if (firstUpload) {
+        var secs = (Date.now() - firstUpload) / 1000;
+        list.push("one view every " + (secs / t).toFixed(1) + " seconds, since " + new Date(firstUpload).getFullYear());
+      }
+      return list;
     }
     var roll = rollingNumber(num);
     function paint() {
       roll(t.toLocaleString("en-US"));
       unitsText.textContent = units()[unit];
     }
-    unitsBtn.addEventListener("click", function () { unit = (unit + 1) % 3; paint(); });
+    unitsBtn.addEventListener("click", function () { unit = (unit + 1) % units().length; paint(); });
     paint();
 
     // Ticking: the API gives `shown` + `showRate`, which climb toward the real total. A big jump
@@ -222,6 +230,7 @@
     getRaw().then(function (d) {
       var v = (d && d.videos) || [];
       if (!v.length) return;
+      v.forEach(function (x) { var p = Date.parse(x.published); if (p && (!firstUpload || p < firstUpload)) firstUpload = p; });
       apply(d);
       var count = $("[data-count]");
       if (count) count.textContent = v.length + " edits →";
@@ -453,6 +462,19 @@
     });
   }
 
+  // About: swaps the photo for a short bio in the same box, so the page doesn't jump around.
+  function initAbout() {
+    var btn = $("[data-about-toggle]"), panel = $("[data-about]"), icon = $("[data-about-icon]");
+    if (!btn || !panel) return;
+    btn.addEventListener("click", function () {
+      var open = panel.hidden;
+      panel.hidden = !open;
+      btn.setAttribute("aria-expanded", String(open));
+      icon.textContent = open ? "×" : "+";
+    });
+  }
+
+  initAbout();
   initHero();
   initHome();
   initVideos();

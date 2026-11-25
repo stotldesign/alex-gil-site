@@ -24,10 +24,12 @@ button { font: inherit; color: inherit; }
 .dim { color: var(--dim); }
 
 /* header */
-.top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; border-bottom: var(--rule); padding-bottom: 12px; }
-.top__name { font-size: 32px; font-weight: 600; letter-spacing: -0.02em; text-decoration: none; }
-.top__mail { font-size: 32px; letter-spacing: -0.02em; }
-.top__title { font-size: clamp(32px, 5vw, 48px); font-weight: 500; letter-spacing: -0.03em; }
+/* header: same height and positions on every page (name left, page title centre, email right) */
+.top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; height: 64px; border-bottom: var(--rule); padding-bottom: 10px; box-sizing: content-box; }
+.top__name { grid-column: 1; justify-self: start; font-size: 40px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; text-decoration: none; }
+.top__title { grid-column: 2; font-size: 40px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; }
+.top__mail { grid-column: 3; justify-self: end; font-size: 18px; letter-spacing: -0.01em; text-underline-offset: 4px; }
+.top__mail.is-copied { text-decoration: none; color: var(--dim); font-family: var(--mono); font-size: 13px; }
 
 /* homepage */
 .home { display: flex; flex-wrap: wrap; gap: 28px; padding-top: 16px; }
@@ -40,6 +42,14 @@ button { font: inherit; color: inherit; }
 .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .6s; }
 .hero img.is-on { opacity: 1; }
 
+.row__arrow { font: 400 18px var(--mono); }
+.row:hover .row__arrow { color: var(--red); }
+.row--button { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-top: var(--rule); padding: 10px 0; min-height: 44px; }
+.row--button:hover .row__label { color: var(--red); }
+.row--button:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.about-panel { position: absolute; inset: 0; z-index: 2; background: var(--paper); border: var(--rule); border-radius: 24px; padding: clamp(18px, 3vw, 32px); box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 14px; animation: fadeIn .35s ease; }
+.about-panel[hidden] { display: none; }
+.about-panel__text { margin: 0; font-size: clamp(17px, 1.7vw, 22px); line-height: 1.4; letter-spacing: -0.01em; max-width: 34ch; }
 .views { border-top: var(--rule); padding-top: 10px; }
 .views__line { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .views__num { display: block; white-space: nowrap; font: 500 clamp(48px, 18cqw, 150px) / 1 var(--mono); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
@@ -123,7 +133,9 @@ a.credit:hover .credit__pic { filter: none; }
 
 @media (max-width: 560px) {
   .frame { padding: 16px; border-radius: 22px; }
-  .top__name, .top__mail { font-size: 26px; }
+  .top { height: 48px; gap: 10px; }
+  .top__name, .top__title { font-size: 28px; }
+  .top__mail { font-size: 14px; }
 }
 
 /* ---- Design: catalogue plates ---- */
