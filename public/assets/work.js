@@ -102,6 +102,21 @@
     wrap.append(index, plate);
     root.appendChild(wrap);
 
+    // fade the edge of a sideways-scrolling row while there's more to see that way (styled for phones only)
+    function edges(sc) {
+      function u() {
+        sc.classList.toggle("fade-l", sc.scrollLeft > 2);
+        sc.classList.toggle("fade-r", sc.scrollLeft + sc.clientWidth < sc.scrollWidth - 2);
+      }
+      sc.addEventListener("scroll", u, { passive: true });
+      window.addEventListener("resize", u);
+      sc.addEventListener("load", u, true); // thumbnails widen the row as they load
+      if (window.ResizeObserver) new ResizeObserver(u).observe(sc);
+      if (window.MutationObserver) new MutationObserver(function () { requestAnimationFrame(u); }).observe(sc, { childList: true });
+      return u;
+    }
+    var fadeIndex = edges(index), fadeStrip = edges(strip);
+
     function caption(p, i) { return "Pl. " + pad(projects.indexOf(p) + 1) + "." + (i + 1) + " · " + p.title; }
 
     function renderIndex() {
@@ -142,7 +157,16 @@
       if (cur) strip.scrollLeft = cur.offsetLeft - strip.clientWidth / 2 + cur.offsetWidth / 2; // keep the page itself still
       history.replaceState(null, "", "#" + p.slug + "/" + (state.i + 1));
     }
-    function render() { renderIndex(); renderPlate(); }
+    function render() {
+      renderIndex(); renderPlate();
+      // when the index is a sideways row (phones), keep the current project in view
+      var cur = index.querySelector('[aria-current="true"]');
+      if (cur && index.scrollWidth > index.clientWidth) {
+        var x = cur.offsetLeft - index.offsetLeft, w = cur.offsetWidth;
+        if (x < index.scrollLeft || x + w > index.scrollLeft + index.clientWidth) index.scrollLeft = Math.max(0, x - 24);
+      }
+      requestAnimationFrame(function () { fadeIndex(); fadeStrip(); });
+    }
     function step(d) {
       var p = projects[state.p];
       state.i += d;

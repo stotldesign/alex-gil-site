@@ -4,13 +4,14 @@
 
   var SETTINGS = {
     avgMinutesWatched: 12,              // used only for the "years of watching" joke
-    pageSize: 12,
+    pageSize: 12,  // phones show 8 (see below)
     heroSeconds: 3,
     creditsShown: 4,                    // channels named in the "edited for" line
     featureSeconds: 9,                  // featured video rotates through each channel's most-viewed edit
     marqueeSpeed: 18,                   // channel row drift speed, pixels per second
     tickSeconds: 2                      // how often the view counter steps up (by however many real views came in)
   };
+  if (window.matchMedia && matchMedia("(max-width: 600px)").matches) SETTINGS.pageSize = 8;
 
   // ---- data: live from /api/videos, falls back to the saved snapshot ----
   // Raw response: { updated, total, rate (views per second), videos: [...] }
