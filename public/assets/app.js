@@ -119,6 +119,18 @@
 
   // "edited for" line: the 4 biggest channels by subscribers, each with its small YouTube
   // profile picture, then "+N more" linking to the Video page.
+  // stretch the names so the line runs to the end of the rule above it
+  function fitCredits(node) {
+    var names = node.querySelector(".credit-names");
+    if (!names) return;
+    names.style.fontSize = "";
+    var base = parseFloat(getComputedStyle(names).fontSize), w = node.clientWidth;
+    if (getComputedStyle(names).whiteSpace !== "nowrap") return; // narrow screens wrap instead
+    var size = base;
+    for (var k = 0; k < 3; k++) { size = size * w / names.getBoundingClientRect().width; size = Math.max(base, Math.min(16, size)); names.style.fontSize = size + "px"; }
+    while (names.getBoundingClientRect().width > w && size > base) { size -= 0.1; names.style.fontSize = size + "px"; }
+  }
+
   function renderCredits(node, d) {
     var list = (d.channels || []).slice();
     if (!list.length) {
@@ -158,6 +170,8 @@
       names.appendChild(group);
       names.appendChild(document.createTextNode(" "));
     });
+    fitCredits(node);
+    if (!fitCredits.bound) { fitCredits.bound = true; window.addEventListener("resize", function () { fitCredits(node); }); }
     if (hasMore) {
       node.appendChild(document.createTextNode(" ")); // a place "+ more" can wrap if it doesn't fit
       var more = el("a", "credit credit--more", "+ more");

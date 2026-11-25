@@ -65,7 +65,7 @@ button { font: inherit; color: inherit; }
   .about-panel { position: relative; grid-template-columns: 34% 1fr; align-items: start; }
   .about-panel__pic { height: auto; aspect-ratio: 3 / 4.5; }
 }
-.views { padding-top: 8px; }
+.views { margin-top: -7px; margin-bottom: -8px; }
 .views__line { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .views__num { display: block; white-space: nowrap; font: 500 clamp(48px, 19.6cqw, 190px) / 1 var(--mono); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
 .roll-cell { display: inline-block; height: 1.1em; overflow: hidden; vertical-align: bottom; }
@@ -76,7 +76,7 @@ button { font: inherit; color: inherit; }
 .views__label { font: 400 16px var(--mono); color: var(--dim); }
 .views__num { transition: opacity .35s ease; }
 .views__num.is-loading { opacity: 0; }
-.views__meta { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; padding-top: 6px; }
+.views__meta { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; padding-top: 16px; }
 .live { display: inline-flex; align-items: center; gap: 6px; font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--red); }
 .live__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); animation: live-pulse 2s ease-in-out infinite; }
 @keyframes live-pulse { 50% { opacity: .25; } }
@@ -110,7 +110,7 @@ a.credit:hover { color: var(--red); }
 .credit-group { display: inline-flex; align-items: center; white-space: nowrap; }
 .credit-names { white-space: nowrap; }
 @container (max-width: 490px) { .credit-names { white-space: normal; } }
-.credit__sep { display: inline-block; width: 3px; height: 3px; border-radius: 50%; background: currentColor; flex: none; margin: 0 7px; }
+.credit__sep { display: inline-block; width: 3px; height: 3px; border-radius: 50%; background: currentColor; flex: none; margin: 0 0 0 .6em; } /* the space after the group gives the same gap on the right */
 .credit--more { text-decoration: underline; display: flex; width: max-content; margin-top: 2px; }
 .credit__pic { width: 14px; height: 14px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.1); transition: filter .2s; }
 a.credit:hover .credit__pic { filter: none; }
