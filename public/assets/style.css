@@ -398,3 +398,7 @@ html[data-vt="wipe"]::view-transition-new(root) { animation: vt-wipe .6s cubic-b
   .credit-roll__view::-webkit-scrollbar { display: none; }
   .credit-roll__track { animation: none; }
 }
+@media (max-width: 600px) {
+  .about-panel__quote { white-space: nowrap; }
+  .about-panel__quote .mono { display: block; margin-top: 2px; } /* "— my mom" on its own line */
+}

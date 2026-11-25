@@ -261,7 +261,7 @@
     function units() {
       var years = Math.round((t * SETTINGS.avgMinutesWatched) / 525960);
       var list = [
-        "views on videos I've edited",
+        "views on videos i've edited",
         "≈ " + years.toLocaleString("en-US") + " years of people watching",
         "≈ " + Math.round(t / 70000).toLocaleString("en-US") + " sold-out SoFi Stadiums"
       ];
