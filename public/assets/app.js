@@ -4,6 +4,7 @@
 
   var SETTINGS = {
     avgMinutesWatched: 12,              // used only for the "years of watching" joke
+    allMonths: 11, // the shuffled "All" view only shows videos from this many recent months
     pageSize: 12,  // phones show 8 (see below)
     heroSeconds: 3,
     creditsShown: 4,                    // channels named in the "edited for" line
@@ -469,7 +470,17 @@
         return;
       }
       all = v;
-      shuffled = v.slice();
+      var cutoff = new Date(); cutoff.setMonth(cutoff.getMonth() - SETTINGS.allMonths);
+      shuffled = v.filter(function (x) {
+        var t = Date.parse(x.published);
+        if (!t) { // offline snapshot only has "3mo ago" style ages
+          var m = /^(\d+)\s*(d|w|mo|y)/.exec(x.ago || "");
+          if (!m) return false;
+          t = Date.now() - m[1] * { d: 1, w: 7, mo: 30.44, y: 365.25 }[m[2]] * 864e5;
+        }
+        return t >= cutoff.getTime();
+      });
+      if (shuffled.length < 6) shuffled = v.slice(); // safety net if the playlist ever goes quiet
       for (var i = shuffled.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1)), tmp = shuffled[i];
         shuffled[i] = shuffled[j]; shuffled[j] = tmp;
