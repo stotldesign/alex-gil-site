@@ -181,3 +181,40 @@ a.credit:hover .credit__pic { filter: none; }
 .lb__prev { left: 16px; top: 50%; transform: translateY(-50%); font-size: 18px; }
 .lb__next { right: 16px; top: 50%; transform: translateY(-50%); font-size: 18px; }
 @media (max-width: 640px) { .lb { padding: 56px 12px 64px; } .lb__prev, .lb__next { top: auto; bottom: 12px; transform: none; } .lb__prev { left: auto; right: 72px; } .lb__cap { bottom: 22px; left: 14px; } }
+
+/* ---- page transitions (cross-document View Transitions; browsers without support just load normally) ----
+   Which one is on: <html data-vt="..."> (set from localStorage while previewing at /lab/transitions/). */
+@view-transition { navigation: auto; }
+html:not([data-vt]) { view-transition-name: none; }
+html:not([data-vt])::view-transition-group(*) { animation: none; }
+html[data-vt]::view-transition-group(root) { animation-duration: .45s; }
+/* 1. fade */
+html[data-vt="fade"]::view-transition-old(root) { animation: vt-fade-out .3s ease both; }
+html[data-vt="fade"]::view-transition-new(root) { animation: vt-fade-in .45s ease .1s both; }
+/* 2. slide */
+html[data-vt="slide"]::view-transition-old(root) { animation: vt-slide-out .45s cubic-bezier(.6,0,.2,1) both; }
+html[data-vt="slide"]::view-transition-new(root) { animation: vt-slide-in .45s cubic-bezier(.6,0,.2,1) both; }
+/* 3. frame stays, inside swaps */
+html[data-vt="frame"] .frame { view-transition-name: frame; }
+html[data-vt="frame"] .top { view-transition-name: topbar; }
+html[data-vt="frame"]::view-transition-old(frame) { animation: vt-fade-out .2s ease both; }
+html[data-vt="frame"]::view-transition-new(frame) { animation: vt-rise-in .5s cubic-bezier(.2,.8,.2,1) .05s both; }
+html[data-vt="frame"]::view-transition-group(frame) { animation-duration: .45s; }
+/* 4. morph: the menu word flies up and becomes the page title */
+html[data-vt="morph"] [data-vt-name="t-video"] { view-transition-name: t-video; }
+html[data-vt="morph"] [data-vt-name="t-design"] { view-transition-name: t-design; }
+html[data-vt="morph"] [data-vt-name="t-photo"] { view-transition-name: t-photo; }
+html[data-vt="morph"] .top__name { view-transition-name: t-name; }
+html[data-vt="morph"]::view-transition-group(*) { animation-duration: .6s; animation-timing-function: cubic-bezier(.65,0,.25,1); }
+html[data-vt="morph"]::view-transition-old(root) { animation: vt-fade-out .25s ease both; }
+html[data-vt="morph"]::view-transition-new(root) { animation: vt-fade-in .4s ease .25s both; }
+/* 5. curtain wipe */
+html[data-vt="wipe"]::view-transition-old(root) { animation: none; z-index: 1; }
+html[data-vt="wipe"]::view-transition-new(root) { animation: vt-wipe .6s cubic-bezier(.7,0,.2,1) both; z-index: 2; }
+@keyframes vt-fade-out { to { opacity: 0; } }
+@keyframes vt-fade-in { from { opacity: 0; } }
+@keyframes vt-slide-out { to { transform: translateX(-6%); opacity: 0; } }
+@keyframes vt-slide-in { from { transform: translateX(6%); opacity: 0; } }
+@keyframes vt-rise-in { from { transform: translateY(14px); opacity: 0; } }
+@keyframes vt-wipe { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+@media (prefers-reduced-motion: reduce) { html[data-vt]::view-transition-group(*), html[data-vt]::view-transition-old(*), html[data-vt]::view-transition-new(*) { animation: none !important; } }

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home 3 (preview) — Alex Gil</title>
+<meta name="description" content="Alex Gil edits YouTube videos for Jordan Huxhold, Payton King, Mads Ludvig and more. Also design and photo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{var v=localStorage.getItem("ag-vt");if(v)document.documentElement.dataset.vt=v}catch(e){}</script>
+
+<meta name="robots" content="noindex">
+<style>
+.row--stack { flex-wrap: wrap; }
+.foot { justify-content: flex-end; }
+.row--stack .credit-line { flex-basis: 100%; margin-top: 8px; color: var(--dim); }
+</style>
+</head>
+<body>
+<div class="page page--center">
+<main class="frame">
+
+  <header class="top">
+    <a class="top__name" href="/">Alex Gil</a>
+    <a class="top__mail" href="mailto:[your@email.com]">Email me</a>
+  </header>
+
+  <div class="home">
+    <div class="home__left">
+      <!-- Hero: add more halftone photos as extra <img> tags; they cycle every 3s -->
+      <div class="hero" data-hero>
+        <img class="is-on" src="/assets/hero-1.jpg" alt="Halftone photo of a figure in a doorway, looking at a phone">
+        <img src="/assets/hero-2.jpg" alt="Halftone portrait, face hidden behind a hand" loading="lazy">
+        <img src="/assets/hero-3.jpg" alt="Halftone photo with hand-drawn line diagrams over it" loading="lazy">
+        <img src="/assets/hero-4.jpg" alt="Halftone photo of a figure at a table, warped by motion" loading="lazy">
+      </div>
+
+      <div class="views">
+        <span class="views__num" data-views>9,502,400</span>
+        <!-- tap to switch between "views" and the joke units -->
+        <button class="views__units" data-units type="button" aria-label="Show views in other units">
+          <span data-units-text>views</span>
+          <span class="views__cycle" aria-hidden="true">↻</span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="home__right" aria-label="Work">
+      <div class="row row--stack">
+        <a href="/video/" style="display:contents;text-decoration:none">
+          <span class="row__label" data-vt-name="t-video">Video</span>
+          <span class="mono" data-count>86 edits →</span>
+        </a>
+        <span class="mono credit-line" data-edited-for>edited for: Jordan Huxhold · Payton King · Mads Ludvig · Alicia · Max · Freja Børre Olsen · Spencer Phipps</span>
+      </div>
+
+      <a class="row" href="/design/">
+        <span class="row__label" data-vt-name="t-design">Design</span>
+        <span class="mono">7 projects →</span>
+      </a>
+
+      <a class="row" href="/photo/">
+        <span class="row__label" data-vt-name="t-photo">Photo</span>
+        <span class="mono">4 sets →</span>
+      </a>
+
+      <details>
+        <summary class="row"><span class="row__label row__label--italic">About</span><span class="mono"></span></summary>
+        <div class="drawer about">
+          <p>I edit YouTube videos that are actually funny: timing, cuts and the dumb little details that make a 40-minute ramble feel like 8. Also design and photo.</p>
+          <p class="mono dim">Premiere · After Effects · Blender · Photoshop</p>
+          <a class="mono" href="https://aldercote.online/">Sounds → Alder Cote ↗</a>
+        </div>
+      </details>
+
+      <footer class="foot">
+        <a class="foot__ig" href="https://www.instagram.com/alex.mp4/">ig</a>
+      </footer>
+    </nav>
+  </div>
+
+</main>
+</div>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>

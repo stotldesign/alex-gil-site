@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Page transitions (preview) — Alex Gil</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{var v=localStorage.getItem("ag-vt");if(v)document.documentElement.dataset.vt=v}catch(e){}</script>
+</head>
+<body>
+<div class="page"><main class="frame">
+  <header class="top"><a class="top__name" href="/">Alex Gil</a><span class="mono dim">page transitions</span></header>
+  <p style="font-size:17px;line-height:1.5;max-width:620px;margin:18px 0 8px">Pick one, then click around the site to feel it. Your pick only applies in your browser while we decide. It works in Chrome, Edge and Safari; other browsers just load pages normally.</p>
+  <div class="pills" style="flex-wrap:wrap" data-pick></div>
+  <p class="mono dim" data-desc style="margin:4px 0 18px"></p>
+  <nav class="home__right" aria-label="Try it">
+    <a class="row" href="/"><span class="row__label">Home</span><span class="mono">try →</span></a>
+    <a class="row" href="/video/"><span class="row__label">Video</span><span class="mono">try →</span></a>
+    <a class="row" href="/design/"><span class="row__label">Design</span><span class="mono">try →</span></a>
+    <a class="row" href="/photo/"><span class="row__label">Photo</span><span class="mono">try →</span></a>
+  </nav>
+</main></div>
+<script>
+var OPTS=[["","Off","No animation (how it is now)."],["fade","1 · Fade","A soft crossfade between pages."],["slide","2 · Slide","The new page glides in from the right as the old one slides away."],["frame","3 · Frame stays","The rounded frame and header stay put and reshape; only what's inside changes."],["morph","4 · Morph","The menu word you click (Video, Design, Photo) flies up and becomes the page title. Best from the homepage."],["wipe","5 · Curtain","The new page wipes down over the old one like a curtain."]];
+var pick=document.querySelector("[data-pick]"),desc=document.querySelector("[data-desc]");
+function cur(){try{return localStorage.getItem("ag-vt")||""}catch(e){return""}}
+function render(){pick.textContent="";OPTS.forEach(function(o){var b=document.createElement("button");b.className="pill";b.type="button";b.textContent=o[1];b.setAttribute("aria-pressed",String(cur()===o[0]));b.onclick=function(){try{o[0]?localStorage.setItem("ag-vt",o[0]):localStorage.removeItem("ag-vt")}catch(e){}if(o[0])document.documentElement.dataset.vt=o[0];else delete document.documentElement.dataset.vt;render()};pick.appendChild(b);if(cur()===o[0])desc.textContent=o[2]})}
+render();
+</script>
+</body>
+</html>
