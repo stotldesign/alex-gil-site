@@ -335,20 +335,29 @@ html[data-vt="wipe"]::view-transition-new(root) { animation: vt-wipe .6s cubic-b
   .card__title { font-size: 14px; padding-top: 1px; }
   .card .mono { font-size: 10.5px; line-height: 1.4; }
 
-  /* about: one clean box, photo fills its side, tools in a neat 2×2 */
-  .about-panel { border: 0; border-radius: 0; padding: 0; grid-template-columns: 40% 1fr; gap: 14px; align-items: stretch; }
-  .about-panel__pic { height: 100%; aspect-ratio: auto; border-radius: 16px; }
-  .about-panel__body { justify-content: center; padding: 2px 0; }
-  .about-panel__lead { font-size: 15.5px; line-height: 1.3; margin-bottom: 8px; }
-  .about-panel__text, .about-panel__quote { font-size: 13px; line-height: 1.4; }
-  .about-panel__rule { margin: 12px 0 10px; }
-  .about-panel__quote { margin-bottom: 8px; }
+  /* about: keep the box; phones show the lead line and the quote only */
+  .about-panel { border-radius: 16px; padding: 10px; grid-template-columns: 38% 1fr; gap: 14px; align-items: stretch; }
+  .about-panel__pic { height: 100%; aspect-ratio: auto; border-radius: 10px; }
+  .about-panel__body { justify-content: center; padding: 4px 4px 4px 0; }
+  .about-panel__lead { font-size: 16px; line-height: 1.3; margin: 0; }
+  .about-panel__text, .about-panel__tools { display: none; }
+  .about-panel__rule { margin: 14px 0 12px; }
+  .about-panel__quote { margin: 0; font-size: 13.5px; line-height: 1.4; }
   .about-panel__quote .mono { white-space: nowrap; font-size: 11px; }
-  .about-panel__tools { display: grid; grid-template-columns: repeat(2, max-content); gap: 5px; margin-top: 2px; }
-  .about-panel__tools li { font-size: 10px; padding: 3px 7px; }
+  .about-panel.is-closing { opacity: 0; transition: opacity .2s ease; }
 }
 @media (max-width: 600px) {
-  .hero:has(.about-panel:not([hidden])) { background: none; border-radius: 0; }
-  .hero:has(.about-panel:not([hidden])) > img { visibility: hidden; }
   .feature__media .thumb .len { display: none; } /* the Play button already shows the length */
+}
+
+@media (max-width: 600px) {
+  /* featured video: title and details sit together */
+  .feature__title { margin: 0; }
+  .feature__info { gap: 6px; }
+  /* counter: commas tucked up and narrower, digits a touch closer */
+  .views__num { font-size: 23.1cqw; }
+  .roll-cell { margin-right: -0.035em; }
+  .roll-sep { display: inline-block; width: .36em; margin-left: -0.06em; position: relative; top: -0.13em; }
+  .views { margin-top: -5px; }
+  .views__meta { padding-top: 2px; }
 }

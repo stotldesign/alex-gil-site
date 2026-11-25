@@ -492,11 +492,29 @@
   function initAbout() {
     var btn = $("[data-about-toggle]"), panel = $("[data-about]"), icon = $("[data-about-icon]");
     if (!btn || !panel) return;
+    var hero = panel.parentNode, busy = false;
+    var phone = window.matchMedia ? matchMedia("(max-width: 600px)") : { matches: false };
     btn.addEventListener("click", function () {
       var open = panel.hidden;
-      panel.hidden = !open;
       btn.setAttribute("aria-expanded", String(open));
       icon.textContent = open ? "×" : "+";
+      if (!phone.matches) { panel.hidden = !open; return; } // desktop: unchanged
+      // phones: the box grows and shrinks smoothly instead of snapping
+      if (busy) return;
+      busy = true;
+      var from = hero.offsetHeight;
+      panel.hidden = !open;
+      var to = hero.offsetHeight;
+      if (!open) { panel.hidden = false; panel.classList.add("is-closing"); }
+      hero.style.height = from + "px";
+      void hero.offsetHeight;
+      hero.style.transition = "height .35s cubic-bezier(.4,0,.2,1)";
+      hero.style.height = to + "px";
+      setTimeout(function () {
+        if (!open) { panel.hidden = true; panel.classList.remove("is-closing"); }
+        hero.style.transition = hero.style.height = "";
+        busy = false;
+      }, 370);
     });
   }
 
