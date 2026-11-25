@@ -393,3 +393,8 @@ html[data-vt="wipe"]::view-transition-new(root) { animation: vt-wipe .6s cubic-b
   .credit-roll__view { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); }
 }
 @media (max-width: 600px) { .credit-roll__track { animation-delay: 2.5s; } } /* hold on Fanta for a moment before rolling */
+@media (max-width: 600px) {
+  .credit-roll__view { overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .credit-roll__view::-webkit-scrollbar { display: none; }
+  .credit-roll__track { animation: none; }
+}

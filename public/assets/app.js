@@ -190,10 +190,22 @@
       }
       view.appendChild(track);
       node.appendChild(view);
-      requestAnimationFrame(function () {
-        var w = track.firstChild.getBoundingClientRect().width;
-        track.style.animationDuration = Math.max(12, w / 28) + "s"; // about 28px a second
-      });
+      // drift on its own from the first frame; a finger can scroll it any time, and it picks up again after
+      var pos = 0, last = 0, holdUntil = 0;
+      function tick(t) {
+        if (!view.isConnected) return;
+        var half = track.firstChild.getBoundingClientRect().width;
+        if (Math.abs(view.scrollLeft - pos) > 1) { pos = view.scrollLeft; holdUntil = t + 2500; } // the person scrolled
+        if (last && t > holdUntil && half > 0) pos += (t - last) * 0.028; // about 28px a second
+        if (half > 0) { if (pos >= half) pos -= half; if (pos < 0) pos += half; }
+        view.scrollLeft = pos;
+        last = t;
+        requestAnimationFrame(tick);
+      }
+      var calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+      view.addEventListener("touchstart", function () { holdUntil = Infinity; }, { passive: true });
+      view.addEventListener("touchend", function () { holdUntil = performance.now() + 2500; }, { passive: true });
+      if (!calm) requestAnimationFrame(tick);
     } else {
       node.classList.remove("credit-roll");
       // desktop: brands first, then the biggest channels by subscribers, then "+ more"
