@@ -133,6 +133,29 @@
     while (names.getBoundingClientRect().width > w && size > base) { size -= 0.1; names.style.fontSize = size + "px"; }
   }
 
+  function creditItem(c) {
+    var item = el(c.url ? "a" : "span", "credit");
+    if (c.url) { item.href = c.url; item.target = "_blank"; item.rel = "noopener"; }
+    if (c.avatar) {
+      var img = el("img", "credit__pic");
+      img.src = c.avatar;
+      img.alt = "";
+      img.loading = "lazy";
+      img.referrerPolicy = "no-referrer";
+      img.onerror = function () { img.remove(); };
+      item.appendChild(img);
+    }
+    item.appendChild(document.createTextNode(c.name));
+    return item;
+  }
+  function creditDot() {
+    var dot = el("span", "credit__sep");
+    dot.setAttribute("aria-hidden", "true");
+    return dot;
+  }
+
+  var phoneQuery = window.matchMedia ? matchMedia("(max-width: 600px)") : { matches: false };
+
   function renderCredits(node, d) {
     var list = (d.channels || []).slice();
     if (!list.length) {
@@ -141,44 +164,56 @@
       (d.videos || []).forEach(function (x) { by[x.channel] = (by[x.channel] || 0) + x.views; });
       list = Object.keys(by).sort(function (a, b) { return by[b] - by[a]; }).map(function (n) { return { name: n }; });
     }
-    if (!list.length) return;
-    var show = SETTINGS.creditsShown;
+    var brands = d.brands || [];
+    if (!list.length && !brands.length) return;
     node.textContent = "";
-    var shown = list.slice(0, show), hasMore = list.length > show;
-    var names = el("span", "credit-names");
-    names.appendChild(document.createTextNode("edited for: "));
-    node.appendChild(names);
-    shown.forEach(function (c, i) {
-      var item = el(c.url ? "a" : "span", "credit");
-      if (c.url) { item.href = c.url; item.target = "_blank"; item.rel = "noopener"; }
-      if (c.avatar) {
-        var img = el("img", "credit__pic");
-        img.src = c.avatar;
-        img.alt = "";
-        img.loading = "lazy";
-        img.referrerPolicy = "no-referrer";
-        img.onerror = function () { img.remove(); };
-        item.appendChild(img);
+    var more = el("a", "credit credit--more", "+ more");
+    more.href = "/video/";
+
+    if (phoneQuery.matches) {
+      // phones: one line, every name rolling past on a loop, "+ more" pinned at the end
+      node.classList.add("credit-roll");
+      node.appendChild(el("span", "credit-roll__label", "edited for:"));
+      var view = el("div", "credit-roll__view"), track = el("div", "credit-roll__track");
+      var all = brands.concat(list);
+      for (var copy = 0; copy < 2; copy++) {
+        var set = el("span", "credit-roll__set");
+        if (copy) set.setAttribute("aria-hidden", "true");
+        all.forEach(function (c) { set.appendChild(creditItem(c)); set.appendChild(creditDot()); });
+        track.appendChild(set);
       }
-      item.appendChild(document.createTextNode(c.name));
-      // the dot is glued to the name before it, so if the line wraps it stays with that name
-      var group = el("span", "credit-group");
-      group.appendChild(item);
-      if (i < shown.length - 1) {
-        var dot = el("span", "credit__sep");
-        dot.setAttribute("aria-hidden", "true");
-        group.appendChild(dot);
-      }
-      names.appendChild(group);
-      names.appendChild(document.createTextNode(" "));
-    });
-    fitCredits(node);
-    if (!fitCredits.bound) { fitCredits.bound = true; window.addEventListener("resize", function () { fitCredits(node); }); }
-    if (hasMore) {
-      node.appendChild(document.createTextNode(" ")); // a place "+ more" can wrap if it doesn't fit
-      var more = el("a", "credit credit--more", "+ more");
-      more.href = "/video/";
+      view.appendChild(track);
+      node.appendChild(view);
       node.appendChild(more);
+      requestAnimationFrame(function () {
+        var w = track.firstChild.getBoundingClientRect().width;
+        track.style.animationDuration = Math.max(12, w / 28) + "s"; // about 28px a second
+      });
+    } else {
+      node.classList.remove("credit-roll");
+      // desktop: brands first, then the biggest channels by subscribers, then "+ more"
+      var shown = brands.concat(list).slice(0, SETTINGS.creditsShown);
+      var names = el("span", "credit-names");
+      names.appendChild(document.createTextNode("edited for: "));
+      node.appendChild(names);
+      shown.forEach(function (c, i) {
+        // the dot is glued to the name before it, so if the line wraps it stays with that name
+        var group = el("span", "credit-group");
+        group.appendChild(creditItem(c));
+        if (i < shown.length - 1) group.appendChild(creditDot());
+        names.appendChild(group);
+        names.appendChild(document.createTextNode(" "));
+      });
+      fitCredits(node);
+      if (brands.length + list.length > shown.length) {
+        node.appendChild(document.createTextNode(" ")); // a place "+ more" can wrap if it doesn't fit
+        node.appendChild(more);
+      }
+    }
+    if (!renderCredits.bound) {
+      renderCredits.bound = true;
+      window.addEventListener("resize", function () { if (!phoneQuery.matches) fitCredits(node); });
+      if (phoneQuery.addEventListener) phoneQuery.addEventListener("change", function () { renderCredits(node, d); });
     }
   }
 

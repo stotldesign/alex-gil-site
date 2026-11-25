@@ -373,3 +373,19 @@ html[data-vt="wipe"]::view-transition-new(root) { animation: vt-wipe .6s cubic-b
   .hero { flex: 1 1 0; min-height: 90px; aspect-ratio: auto; }
   .hero:has(.about-panel:not([hidden])) { flex: none; }
 }
+
+/* phones: "edited for" is one rolling line, a little bigger, "+ more" pinned at the end */
+@media (max-width: 600px) {
+  .foot [data-edited-for].credit-roll { display: flex; align-items: center; gap: 8px; font-size: 13px; line-height: 1.4; }
+  .credit-roll__label { flex: none; }
+  .credit-roll__view { flex: 1; min-width: 0; overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, #000 14px, #000 calc(100% - 24px), transparent); mask-image: linear-gradient(to right, transparent, #000 14px, #000 calc(100% - 24px), transparent); }
+  .credit-roll__track { display: flex; width: max-content; animation: credit-roll 30s linear infinite; }
+  .credit-roll__view:active .credit-roll__track { animation-play-state: paused; }
+  .credit-roll__set { display: flex; align-items: center; flex: none; }
+  .credit-roll .credit__sep { margin: 0 .6em; }
+  .credit-roll .credit__pic { width: 16px; height: 16px; }
+  .credit-roll .credit--more { flex: none; margin: 0; }
+  .foot { align-items: center; }
+}
+@keyframes credit-roll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .credit-roll__track { animation: none; } .credit-roll__view { overflow-x: auto; } }

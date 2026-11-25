@@ -34,7 +34,8 @@ export async function onRequestGet(context) {
     const videos = await loadPlaylist(env.YT_API_KEY, playlist);
     const channels = await loadChannels(env.YT_API_KEY, videos).catch(() => (snap && snap.channels) || []);
     const total = videos.reduce((s, v) => s + v.views, 0);
-    const body = { updated: new Date(now).toISOString(), source: "live", total, rate: 0, channels, videos };
+    const brands = await loadBrands(env.YT_API_KEY).catch(() => (snap && snap.brands) || []);
+    const body = { updated: new Date(now).toISOString(), source: "live", total, rate: 0, brands, channels, videos };
 
     // Rate = median of the last 12 measurements (~1 hour). A sudden step (a video added, a
     // viral spike) shows up in one reading and is ignored here; the catch-up below spreads it
@@ -108,6 +109,23 @@ export async function loadPlaylist(key, playlist) {
   }
   videos.sort((a, b) => b.views - a.views);
   return videos;
+}
+
+// Brands Alex has edited for. They lead the "edited for" line, with the brand's own YouTube
+// profile picture, and link to the work. Add more here as { name, username|handle, url }.
+export const BRANDS = [
+  { name: "Fanta", username: "fanta", url: "https://www.youtube.com/watch?v=JznJvd_G6ps" }
+];
+export async function loadBrands(key) {
+  const out = [];
+  for (const b of BRANDS) {
+    const q = b.handle ? { forHandle: b.handle } : { forUsername: b.username };
+    const j = await yt("channels", Object.assign({ part: "snippet" }, q), key).catch(() => ({}));
+    const c = (j.items || [])[0];
+    const th = (c && c.snippet.thumbnails) || {};
+    out.push({ name: b.name, url: b.url, brand: true, avatar: (th.default || th.medium || {}).url || "" });
+  }
+  return out;
 }
 
 // Channel name, subscriber count and small profile picture for every creator in the playlist.
