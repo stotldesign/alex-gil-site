@@ -52,6 +52,7 @@ button { font: inherit; color: inherit; }
 .about-panel__body { display: flex; flex-direction: column; gap: 12px; padding-right: clamp(4px, 1vw, 12px); }
 .about-panel[hidden] { display: none; }
 .about-panel__text { margin: 0; font-size: clamp(14px, 1.15vw, 16.5px); line-height: 1.4; letter-spacing: -0.01em; }
+.about-panel__quote { margin: 4px 0 0; padding-top: 10px; border-top: 1px solid rgba(28,28,26,.25); font-size: 13px; }
 /* phones: the box grows to fit the text instead of squeezing it */
 @media (max-width: 640px) {
   .hero:has(.about-panel:not([hidden])) { aspect-ratio: auto; }
