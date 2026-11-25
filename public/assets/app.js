@@ -130,8 +130,10 @@
     if (!list.length) return;
     var show = SETTINGS.creditsShown;
     node.textContent = "";
-    node.appendChild(document.createTextNode("edited for: "));
     var shown = list.slice(0, show), hasMore = list.length > show;
+    var names = el("span", "credit-names");
+    names.appendChild(document.createTextNode("edited for: "));
+    node.appendChild(names);
     shown.forEach(function (c, i) {
       var item = el(c.url ? "a" : "span", "credit");
       if (c.url) { item.href = c.url; item.target = "_blank"; item.rel = "noopener"; }
@@ -149,10 +151,11 @@
       var group = el("span", "credit-group");
       group.appendChild(item);
       if (i < shown.length - 1 || hasMore) group.appendChild(el("span", "credit__sep", "·"));
-      node.appendChild(group);
-      node.appendChild(document.createTextNode(" "));
+      names.appendChild(group);
+      names.appendChild(document.createTextNode(" "));
     });
     if (hasMore) {
+      node.appendChild(document.createTextNode(" ")); // a place "+ more" can wrap if it doesn't fit
       var more = el("a", "credit credit--more", "+ more");
       more.href = "/video/";
       node.appendChild(more);
@@ -186,7 +189,7 @@
     function units() {
       var years = Math.round((t * SETTINGS.avgMinutesWatched) / 525960);
       var list = [
-        "views",
+        "views on videos I've edited",
         "≈ " + years.toLocaleString("en-US") + " years of people watching",
         "≈ " + Math.round(t / 70000).toLocaleString("en-US") + " sold-out SoFi Stadiums"
       ];
