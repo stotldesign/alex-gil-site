@@ -220,7 +220,7 @@ a.credit:hover .credit__pic { filter: none; }
 @media (max-width: 640px) { .lb { padding: 56px 12px 64px; } .lb__prev, .lb__next { top: auto; bottom: 12px; transform: none; } .lb__prev { left: auto; right: 72px; } .lb__cap { bottom: 22px; left: 14px; } }
 
 /* ---- page transitions (cross-document View Transitions; browsers without support just load normally) ----
-   Which one is on: <html data-vt="..."> (set from localStorage while previewing at /lab/transitions/). */
+   Which one is on: <html data-vt="..."> (defaults to "morphframe"; /lab/transitions/ can override it per browser). */
 @view-transition { navigation: auto; }
 html:not([data-vt]) { view-transition-name: none; }
 html:not([data-vt])::view-transition-group(*) { animation: none; }
