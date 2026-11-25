@@ -30,13 +30,11 @@
       </div>
 
       <div class="views">
-        <div class="views__line">
-          <span class="views__num" data-views>9,502,400</span>
-          <span class="views__label">views</span>
-        </div>
-        <button class="views__units" data-units type="button">
-          <span data-units-text></span>
-          <span class="mono">in other units ↻</span>
+        <span class="views__num" data-views>9,502,400</span>
+        <!-- tap to switch between "views" and the joke units -->
+        <button class="views__units" data-units type="button" aria-label="Show views in other units">
+          <span data-units-text>views</span>
+          <span class="views__cycle" aria-hidden="true">↻</span>
         </button>
       </div>
     </div>

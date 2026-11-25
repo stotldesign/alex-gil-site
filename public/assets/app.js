@@ -180,7 +180,7 @@
     function units() {
       var years = Math.round((t * SETTINGS.avgMinutesWatched) / 525960);
       return [
-        "",
+        "views",
         "≈ " + years.toLocaleString("en-US") + " years of people watching",
         "every Angeleno, " + (t / 3800000).toFixed(1) + " times over"
       ];
