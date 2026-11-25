@@ -133,8 +133,8 @@
     while (names.getBoundingClientRect().width > w && size > base) { size -= 0.1; names.style.fontSize = size + "px"; }
   }
 
-  function creditItem(c) {
-    var item = el(c.url ? "a" : "span", "credit");
+  function creditItem(c, link) {
+    var item = el(c.url || link ? "a" : "span", "credit");
     if (c.url) { item.href = c.url; item.target = "_blank"; item.rel = "noopener"; }
     if (c.avatar) {
       var img = el("img", "credit__pic");
@@ -173,18 +173,23 @@
     if (phoneQuery.matches) {
       // phones: one line, every name rolling past on a loop, "+ more" pinned at the end
       node.classList.add("credit-roll");
-      node.appendChild(el("span", "credit-roll__label", "edited for:"));
       var view = el("div", "credit-roll__view"), track = el("div", "credit-roll__track");
-      var all = brands.concat(list);
+      var all = brands.concat(list); // Fanta (brands) first
       for (var copy = 0; copy < 2; copy++) {
         var set = el("span", "credit-roll__set");
         if (copy) set.setAttribute("aria-hidden", "true");
-        all.forEach(function (c) { set.appendChild(creditItem(c)); set.appendChild(creditDot()); });
+        all.forEach(function (c) {
+          var item = creditItem(c, true);
+          // on phones every name opens the Video page: a channel with its filter on, a brand on its video
+          item.href = "/video/?" + (c.brand && c.url && /v=([\w-]+)/.test(c.url) ? "v=" + RegExp.$1 : "channel=" + encodeURIComponent(c.name));
+          item.removeAttribute("target");
+          if (copy) item.tabIndex = -1;
+          set.appendChild(item); set.appendChild(creditDot());
+        });
         track.appendChild(set);
       }
       view.appendChild(track);
       node.appendChild(view);
-      node.appendChild(more);
       requestAnimationFrame(function () {
         var w = track.firstChild.getBoundingClientRect().width;
         track.style.animationDuration = Math.max(12, w / 28) + "s"; // about 28px a second
@@ -524,6 +529,11 @@
       all.forEach(function (x) { if (!best[x.channel] || x.views > best[x.channel].views) best[x.channel] = x; });
       highlights = Object.keys(best).map(function (k) { return best[k]; }).sort(function (a, b) { return b.views - a.views; });
       state.sel = highlights[Math.floor(Math.random() * highlights.length)];
+      // links from the homepage credits: ?channel=Name opens that channel, ?v=id features that video
+      var qs = new URLSearchParams(location.search), qc = qs.get("channel"), qv = qs.get("v");
+      if (qc && all.some(function (x) { return x.channel === qc; })) state.filter = qc;
+      var picked = qv && all.filter(function (x) { return x.id === qv; })[0];
+      if (picked) { state.sel = picked; state.auto = false; }
       root.appendChild(feature);
       root.appendChild(pills);
       root.appendChild(grid);

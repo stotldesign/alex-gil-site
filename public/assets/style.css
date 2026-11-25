@@ -389,3 +389,7 @@ html[data-vt="wipe"]::view-transition-new(root) { animation: vt-wipe .6s cubic-b
 }
 @keyframes credit-roll { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .credit-roll__track { animation: none; } .credit-roll__view { overflow-x: auto; } }
+@media (max-width: 600px) {
+  .credit-roll__view { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); }
+}
+@media (max-width: 600px) { .credit-roll__track { animation-delay: 2.5s; } } /* hold on Fanta for a moment before rolling */
