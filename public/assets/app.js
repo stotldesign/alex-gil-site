@@ -106,9 +106,9 @@
       void node.offsetWidth; // apply start positions before enabling transitions
       cols.forEach(function (c) { if (c) c.style.transition = ""; });
     }
-    return function (s) {
+    return function (s, instant) {
       if (s === current) return;
-      if (s.length !== current.length) build(s);
+      if (instant || s.length !== current.length) build(s); // instant: jump straight there, no rolling
       else {
         for (var i = 0; i < s.length; i++) if (cols[i]) cols[i].style.transform = "translateY(-" + s[i] + "0%)";
         node.lastChild.textContent = s;
@@ -150,7 +150,11 @@
       // the dot is glued to the name before it, so if the line wraps it stays with that name
       var group = el("span", "credit-group");
       group.appendChild(item);
-      if (i < shown.length - 1 || hasMore) group.appendChild(el("span", "credit__sep", "·"));
+      if (i < shown.length - 1) {
+        var dot = el("span", "credit__sep");
+        dot.setAttribute("aria-hidden", "true");
+        group.appendChild(dot);
+      }
       names.appendChild(group);
       names.appendChild(document.createTextNode(" "));
     });
@@ -196,12 +200,15 @@
       return list;
     }
     var roll = rollingNumber(num);
-    function paint() {
-      roll(t.toLocaleString("en-US"));
+    function paint(instant) {
+      roll(t.toLocaleString("en-US"), instant);
       unitsText.textContent = units()[unit];
     }
+    function reveal() { num.classList.remove("is-loading"); }
     unitsBtn.addEventListener("click", function () { unit = (unit + 1) % units().length; paint(); });
-    paint();
+    // The number stays hidden until the live total arrives, then appears already correct
+    // (no counting up from an old number). If loading takes too long, show what we have.
+    setTimeout(reveal, 4000);
 
     // Ticking: the API gives `shown` + `showRate`, which climb toward the real total. A big jump
     // in real views is spread out (fast climb for a few hours) instead of leaping. Never shows more
@@ -219,9 +226,11 @@
       showRate = d.showRate > 0 ? d.showRate : realRate;
       at = d.updated && d.source === "live" ? Math.max(Date.parse(d.updated), Date.now() - 600000) : Date.now();
       var goal = target();
-      if (!started || t > goal + 500) t = goal; // first load, or stale number far ahead: snap to it
+      var first = !started;
+      if (first || t > goal + 500) t = goal; // first load, or stale number far ahead: snap to it
       started = true;
-      paint();
+      paint(first);
+      if (first) requestAnimationFrame(reveal);
     }
     setInterval(function () {
       var next = target();
