@@ -208,6 +208,17 @@ html[data-vt="morph"] .top__name { view-transition-name: t-name; }
 html[data-vt="morph"]::view-transition-group(*) { animation-duration: .6s; animation-timing-function: cubic-bezier(.65,0,.25,1); }
 html[data-vt="morph"]::view-transition-old(root) { animation: vt-fade-out .25s ease both; }
 html[data-vt="morph"]::view-transition-new(root) { animation: vt-fade-in .4s ease .25s both; }
+/* 6. morph + frame stays: frame and header hold still and reshape, menu word becomes the title */
+html[data-vt="morphframe"] .frame { view-transition-name: frame; }
+html[data-vt="morphframe"] .top__name { view-transition-name: t-name; }
+html[data-vt="morphframe"] .top__mail { view-transition-name: t-mail; }
+html[data-vt="morphframe"] [data-vt-name="t-video"] { view-transition-name: t-video; }
+html[data-vt="morphframe"] [data-vt-name="t-design"] { view-transition-name: t-design; }
+html[data-vt="morphframe"] [data-vt-name="t-photo"] { view-transition-name: t-photo; }
+html[data-vt="morphframe"]::view-transition-group(*) { animation-duration: .6s; animation-timing-function: cubic-bezier(.65,0,.25,1); }
+html[data-vt="morphframe"]::view-transition-old(frame) { animation: vt-fade-out .22s ease both; }
+html[data-vt="morphframe"]::view-transition-new(frame) { animation: vt-rise-in .45s cubic-bezier(.2,.8,.2,1) .28s both; }
+html[data-vt="morphframe"]::view-transition-old(root), html[data-vt="morphframe"]::view-transition-new(root) { animation: none; }
 /* 5. curtain wipe */
 html[data-vt="wipe"]::view-transition-old(root) { animation: none; z-index: 1; }
 html[data-vt="wipe"]::view-transition-new(root) { animation: vt-wipe .6s cubic-bezier(.7,0,.2,1) both; z-index: 2; }
