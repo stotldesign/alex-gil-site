@@ -97,7 +97,8 @@
     prev.type = next.type = "button";
     nav.append(prev, next);
     var strip = el("div", "cat__strip");
-    plate.append(stage, cap, nav, strip);
+    cap.appendChild(nav); // prev/next sit on the caption line so the page fits without scrolling
+    plate.append(stage, cap, strip);
     wrap.append(index, plate);
     root.appendChild(wrap);
 
