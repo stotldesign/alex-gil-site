@@ -266,3 +266,47 @@ html[data-vt="wipe"]::view-transition-new(root) { animation: vt-wipe .6s cubic-b
 @keyframes vt-rise-in { from { transform: translateY(14px); opacity: 0; } }
 @keyframes vt-wipe { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
 @media (prefers-reduced-motion: reduce) { html[data-vt]::view-transition-group(*), html[data-vt]::view-transition-old(*), html[data-vt]::view-transition-new(*) { animation: none !important; } }
+
+/* ---- phones only (under 600px): tighter spacing, less scrolling. Desktop is untouched. ---- */
+@media (max-width: 600px) {
+  .page { padding: 10px 8px; }
+  .frame { padding: 12px 14px 14px; border-radius: 20px; }
+  .top { height: 40px; padding-bottom: 6px; }
+  .top__name, .top__title { font-size: 26px; }
+
+  /* home: everything fits on one screen */
+  .home { gap: 14px; padding-top: 12px; }
+  .home__left { gap: 10px; }
+  .hero { aspect-ratio: 3 / 2; border-radius: 16px; }
+  .views__meta { padding-top: 10px; }
+  .row, .row--button { padding: 6px 0; min-height: 0; }
+  .row__label { font-size: 38px; }
+  .row__arrow { font-size: 15px; }
+  .foot__ig--corner { padding-top: 6px; }
+
+  /* video: two columns instead of one long list */
+  .feature { gap: 12px; padding: 12px 0 14px; }
+  .feature__media .thumb, .feature__media iframe { border-radius: 14px; }
+  .feature__title { font-size: 21px; }
+  .feature__info { gap: 8px; }
+  .pills { padding: 12px 0; }
+  .grid { grid-template-columns: 1fr 1fr; gap: 16px 10px; }
+  .card { gap: 4px; }
+  .card__title { font-size: 13px; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .card .mono { font-size: 10.5px; }
+  .thumb { border-radius: 8px; }
+  .thumb .len { font-size: 9.5px; }
+  .more { padding-top: 18px; }
+
+  /* photo: a tight two-column wall, no scattered gaps */
+  .salon { padding: 16px 0 20px; }
+  .salon__label { padding: 6px 10px; margin-bottom: 12px; }
+  .salon__title { font-size: 18px; }
+  .salon__wall { display: block; columns: 2; column-gap: 8px; }
+  .salon__piece { display: block; height: auto; width: 100%; aspect-ratio: var(--ar); transform: none; margin: 0 0 8px; break-inside: avoid; }
+  .salon__piece:hover { transform: none; }
+  .salon__piece img { box-shadow: none; }
+
+  /* design */
+  .cat { gap: 14px; padding-top: 12px; }
+}
