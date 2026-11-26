@@ -88,6 +88,11 @@
     var cols = [], current = "";
     function build(s) {
       node.textContent = "";
+      // let the CSS size the number to its length, so 10,000,000+ still fits the width
+      var commas = s.split(",").length - 1;
+      node.style.setProperty("--n", s.length);
+      node.style.setProperty("--d", s.length - commas);
+      node.style.setProperty("--c", commas);
       cols = [];
       var vis = el("span");
       vis.setAttribute("aria-hidden", "true");

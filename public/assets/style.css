@@ -67,7 +67,7 @@ button { font: inherit; color: inherit; }
 }
 .views { margin-top: -7px; margin-bottom: -8px; }
 .views__line { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-.views__num { display: block; white-space: nowrap; font: 500 clamp(48px, 19.6cqw, 190px) / 1 var(--mono); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.views__num { display: block; white-space: nowrap; font: 500 clamp(40px, calc(19.6cqw * 9 / var(--n, 9)), 190px) / 1 var(--mono); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
 .roll-cell { display: inline-block; height: 1.1em; overflow: hidden; vertical-align: bottom; }
 .roll-col { display: flex; flex-direction: column; transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
 .roll-col > span { height: 1.1em; line-height: 1.1em; }
@@ -355,7 +355,7 @@ html[data-vt="wipe"]::view-transition-new(root) { animation: vt-wipe .6s cubic-b
   .feature__title { margin: 0; }
   .feature__info { gap: 6px; }
   /* counter: commas tucked up and narrower, digits a touch closer */
-  .views__num { font-size: 23.1cqw; }
+  .views__num { font-size: calc(23.1cqw * 4.555 / (var(--d, 7) * 0.565 + var(--c, 2) * 0.3)); } /* digit ≈ .565em, comma ≈ .3em here */
   .roll-cell { margin-right: -0.035em; }
   .roll-sep { display: inline-block; width: .36em; margin-left: -0.06em; position: relative; top: -0.13em; }
   .views { margin-top: -5px; }
