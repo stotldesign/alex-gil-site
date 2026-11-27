@@ -10,7 +10,7 @@ folder = os.path.join(ROOT, "public", "assets", "shorts")
 os.makedirs(folder, exist_ok=True)
 old_path = os.path.join(ROOT, "public", "data", "shorts.json")
 old = json.load(open(old_path)) if os.path.exists(old_path) else {}
-old_by_id = {s["id"]: s for clips in old.values() for s in clips}
+old_by_id = {s["id"]: s for k, clips in old.items() if not k.startswith("_") for s in clips}
 
 def get(url):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
