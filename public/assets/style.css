@@ -402,3 +402,23 @@ html[data-vt="wipe"]::view-transition-new(root) { animation: vt-wipe .6s cubic-b
   .about-panel__quote { white-space: nowrap; }
   .about-panel__quote .mono { display: block; margin-top: 2px; } /* "— my mom" on its own line */
 }
+
+/* short-form shelf (TikToks, Reels) above a channel's videos */
+.shelf[hidden] { display: none; }
+.shelf { padding: 4px 0 0; }
+.shelf__label { font-size: 11.5px; margin: 0 0 10px; }
+.shelf__row { display: flex; gap: 14px; overflow-x: auto; scrollbar-width: none; padding-bottom: 22px; margin-bottom: 18px; border-bottom: var(--rule); }
+.shelf__row::-webkit-scrollbar { display: none; }
+.short { flex: none; width: 128px; display: flex; flex-direction: column; gap: 6px; color: inherit; text-decoration: none; }
+.short__pic { position: relative; aspect-ratio: 9 / 16; border-radius: 12px; overflow: hidden; background: var(--tint); }
+.short__pic img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1) contrast(1.15); transition: filter .25s, transform .3s; }
+.short__pic::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .55; transition: opacity .25s; background: repeating-linear-gradient(to bottom, rgba(0,0,0,.75) 0 1px, transparent 1px 3px); }
+.short:hover .short__pic img, .short:focus-visible .short__pic img { filter: none; transform: scale(1.03); }
+@media (hover: none) { .short:active .short__pic img { filter: none; } .short:active .short__pic::after { opacity: 0; } }
+.short:hover .short__pic::after, .short:focus-visible .short__pic::after { opacity: 0; }
+.short__meta { font-size: 11px; }
+.short:hover .short__meta { color: var(--red, #d7301f); }
+@media (max-width: 600px) {
+  .short { width: 104px; }
+  .shelf__row { gap: 10px; padding-bottom: 16px; margin-bottom: 14px; }
+}

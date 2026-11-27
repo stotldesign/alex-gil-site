@@ -333,6 +333,34 @@
     var pills = el("div", "pills");
     var grid = el("div", "grid");
     var more = el("div", "more");
+    var shelf = el("div", "shelf"), shorts = {};
+    // short-form clips (TikToks, Reels) for a channel, from work/shorts.json via the fetch-shorts action
+    fetch("/data/shorts.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : {}; })
+      .then(function (j) { shorts = j || {}; renderShelf(); }).catch(function () {});
+
+    function renderShelf() {
+      shelf.textContent = "";
+      var clips = (state.filter !== "All" && shorts[state.filter]) || [];
+      shelf.hidden = !clips.length;
+      grid.classList.toggle("grid--labelled", clips.length > 0);
+      if (!clips.length) return;
+      shelf.appendChild(el("div", "shelf__label mono dim", "shorts · " + clips.length));
+      var row = el("div", "shelf__row");
+      clips.forEach(function (c) {
+        var a = el("a", "short");
+        a.href = c.url; a.target = "_blank"; a.rel = "noopener";
+        a.title = (c.title || "Watch") + (c.platform === "tiktok" ? " on TikTok" : " on Instagram");
+        var pic = el("div", "short__pic");
+        if (c.img) { var img = el("img"); img.src = c.img; img.alt = c.title || ""; img.loading = "lazy"; pic.appendChild(img); }
+        a.appendChild(pic);
+        var tag = (c.platform === "tiktok" ? "tiktok" : "reel");
+        if (c.account && c.account.toLowerCase() !== state.filter.replace(/\s/g, "").toLowerCase()) tag += " · @" + c.account;
+        a.appendChild(el("span", "short__meta mono dim", tag));
+        row.appendChild(a);
+      });
+      shelf.appendChild(row);
+      shelf.appendChild(el("div", "shelf__label mono dim", "videos"));
+    }
 
     // All: shuffled once per visit. A channel: newest to oldest.
     var shuffled = [];
@@ -492,6 +520,7 @@
     }
 
     function renderGrid() {
+      renderShelf();
       grid.textContent = "";
       more.textContent = "";
       var list = currentList();
@@ -553,6 +582,7 @@
       if (picked) { state.sel = picked; state.auto = false; }
       root.appendChild(feature);
       root.appendChild(pills);
+      root.appendChild(shelf);
       root.appendChild(grid);
       root.appendChild(more);
       renderFeature();
