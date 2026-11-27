@@ -44,5 +44,6 @@ for channel, clips in manifest.items():
                              "title": title, "img": "/assets/shorts/%s.webp" % cid if os.path.exists(img) else ""})
         print("ok", channel, cid, bool(cover))
 
+out["_views"] = manifest.get("_views", {})
 json.dump(out, open(old_path, "w"), indent=1, ensure_ascii=False)
 print("done")

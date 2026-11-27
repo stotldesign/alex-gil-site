@@ -340,11 +340,12 @@
 
     function renderShelf() {
       shelf.textContent = "";
-      var clips = (state.filter !== "All" && shorts[state.filter]) || [];
+      var clips = (state.filter !== "All" && state.filter.charAt(0) !== "_" && shorts[state.filter]) || [];
       shelf.hidden = !clips.length;
       grid.classList.toggle("grid--labelled", clips.length > 0);
       if (!clips.length) return;
-      shelf.appendChild(el("div", "shelf__label mono dim", "shorts · " + clips.length));
+      var tot = (shorts._views || {})[state.filter];
+      shelf.appendChild(el("div", "shelf__label mono dim", "shorts · " + clips.length + (tot ? " · " + tot + " views" : "")));
       var row = el("div", "shelf__row");
       clips.forEach(function (c) {
         var a = el("a", "short");

@@ -1,5 +1,5 @@
 {
- "_readme": "Short-form clips (TikToks, Reels) shown as a shelf on a channel's Video page view. Key = the YouTube channel name. Add an entry with url (+ platform/account). TikTok covers are fetched automatically; Instagram ones need a 'cover' image URL. Pushing this file runs .github/workflows/fetch-shorts.yml.",
+ "_readme": "Short-form clips (TikToks, Reels) shown as a shelf on a channel's Video page view. Key = the YouTube channel name. Add an entry with url (+ platform/account). TikTok covers are fetched automatically; Instagram ones need a 'cover' image URL. Pushing this file runs .github/workflows/fetch-shorts.yml. _views: optional hand-written total per channel, shown on the shelf label (not live, so keep it rounded with a +).",
  "Payton King": [
   {
    "url": "https://www.instagram.com/reel/DecnWt0K97J/",
@@ -22,5 +22,8 @@
    "title": "wanta Fanta? run for it.",
    "cover": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/okEyABEAVrAFrEpkDERDezfSAHD2ECAI6Acq9O~tplv-tiktokx-origin.image?dr=9636&x-expires=1795986000&x-signature=1WlgTCVFA6m%2FSdoC2Orm6a%2FraTU%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5"
   }
- ]
+ ],
+ "_views": {
+  "Payton King": "50M+"
+ }
 }
