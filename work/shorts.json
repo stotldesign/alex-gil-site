@@ -1,29 +1,94 @@
 {
- "_readme": "Short-form clips (TikToks, Reels) shown as a shelf on a channel's Video page view. Key = the YouTube channel name. Add an entry with url (+ platform/account). TikTok covers are fetched automatically; Instagram ones need a 'cover' image URL. Pushing this file runs .github/workflows/fetch-shorts.yml. _views: optional hand-written total per channel, shown on the shelf label (not live, so keep it rounded with a +).",
- "Payton King": [
+ "_readme": "Short-form edits (TikToks, Reels) for the Shorts view on the Video page. views = a hand-checked snapshot (TikTok/Instagram can't be read live) dated by views_checked; the page shows the total rounded down with a +. 'also' = the same edit posted on another platform (one tile, views added). TikTok covers can be fetched from oEmbed; Instagram needs a 'cover' image URL. Pushing this file runs .github/workflows/fetch-shorts.yml.",
+ "views_checked": "2026-11-27",
+ "clips": [
   {
-   "url": "https://www.instagram.com/reel/DecnWt0K97J/",
-   "platform": "instagram",
+   "url": "https://www.tiktok.com/@paytonking/video/7696249032859012382",
+   "platform": "tiktok",
    "account": "paytonking",
+   "creator": "Payton King",
    "title": "wanta Fanta? run for it.",
-   "cover": "https://scontent-lax3-2.cdninstagram.com/v/t51.82787-15/847729760_18629983951044213_3832349301377705067_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=103&_nc_map=urlgen_bucketless&ig_cache_key=NDAwNzI1MDg1MzI4ODk5MjQ1NzE4NjI5OTgzOTQ4MDQ0MjEz.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjcyMC5zZHIudmlkZW9fdXNlcl9zZWxlY3RlZF90aHVtYm5haWwuQzMifQ%3D%3D&_nc_ohc=tw3eVeDX-mwQ7kNvwFSmPxb&_nc_oc=Ado4l49bh44EUh00rh5uYgzdyf7DadaTaB2XopgVSYA_Spizd1oGoYn95KZJzOnnD1uXTBao4Ye3_q9pu6shQz5P&_nc_zt=23&_nc_ht=scontent-lax3-2.cdninstagram.com&_nc_gid=LgPXhAiOUFVJL4LNJySggg&_nc_ss=787a8&_nc_ct=RQosPBUIFQ4lBAAAAA&oh=00_AQUh0TedRIiY0V8BgVDlF7pEK64CtkmVL0CfQIHgGlKvYg&oe=6B0FC44E"
+   "views": 40300000,
+   "cover": "https://scontent-lax3-2.cdninstagram.com/v/t51.82787-15/847729760_18629983951044213_3832349301377705067_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=103&_nc_map=urlgen_bucketless&ig_cache_key=NDAwNzI1MDg1MzI4ODk5MjQ1NzE4NjI5OTgzOTQ4MDQ0MjEz.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjcyMC5zZHIudmlkZW9fdXNlcl9zZWxlY3RlZF90aHVtYm5haWwuQzMifQ%3D%3D&_nc_ohc=tw3eVeDX-mwQ7kNvwFSmPxb&_nc_oc=Ado4l49bh44EUh00rh5uYgzdyf7DadaTaB2XopgVSYA_Spizd1oGoYn95KZJzOnnD1uXTBao4Ye3_q9pu6shQz5P&_nc_zt=23&_nc_ht=scontent-lax3-2.cdninstagram.com&_nc_gid=LgPXhAiOUFVJL4LNJySggg&_nc_ss=787a8&_nc_ct=RQosPBUIFQ4lBAAAAA&oh=00_AQUh0TedRIiY0V8BgVDlF7pEK64CtkmVL0CfQIHgGlKvYg&oe=6B0FC44E",
+   "also": [
+    {
+     "url": "https://www.instagram.com/reel/DecnWt0K97J/",
+     "platform": "instagram",
+     "views": 3000000
+    }
+   ]
   },
   {
    "url": "https://www.instagram.com/reel/DefWwfrp905/",
    "platform": "instagram",
    "account": "fanta",
+   "creator": "Fanta",
    "title": "squad pulling up like …",
+   "views": 5800000,
    "cover": "https://scontent-lax3-2.cdninstagram.com/v/t51.82787-15/848787231_18587837884070471_7018661858236368161_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ig_cache_key=NDAwODAyMjI4Mjk1OTU3NjM3NzE4NTg3ODM3ODc4MDcwNDcx.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjcyMC5zZHIudmlkZW9fdXNlcl9zZWxlY3RlZF90aHVtYm5haWwuQzMifQ%3D%3D&_nc_ohc=Dts6bTrg7w0Q7kNvwHHRvMg&_nc_oc=Ado4qT2Om2Ab7FjuOxZRjJdylTzLWbArtGQCzobt8jprfc5GX7rMkw74zVgIV1vpV0rkVgCgNFg_HYtaU8kAyxZc&_nc_zt=23&_nc_ht=scontent-lax3-2.cdninstagram.com&_nc_gid=1RLyCi_kPuI4xJyjFYATuw&_nc_ss=7b7a8&_nc_ct=RQosPBUIFQ4lBAAAAA&oh=00_AQVNkoSadA48F4O0LYJMBeEhI0SRoeFZQaatojwa-VnSqA&oe=6B0FC0CD"
   },
   {
-   "url": "https://www.tiktok.com/@paytonking/video/7696249032859012382",
+   "url": "https://www.tiktok.com/@mads.ludvig/video/7373415779091467552",
    "platform": "tiktok",
-   "account": "paytonking",
-   "title": "wanta Fanta? run for it.",
-   "cover": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/okEyABEAVrAFrEpkDERDezfSAHD2ECAI6Acq9O~tplv-tiktokx-origin.image?dr=9636&x-expires=1795986000&x-signature=1WlgTCVFA6m%2FSdoC2Orm6a%2FraTU%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5"
+   "account": "mads.ludvig",
+   "creator": "Mads Ludvig",
+   "title": "running",
+   "views": 21600,
+   "cover": "https://p19-common-sign.tiktokcdn-us.com/tos-useast2a-p-0037-euttp/oQBeARrUqFaUKE6HImED7Tf8Qa0cQKk1DPnClR~tplv-tiktokx-origin.image?dr=9636&x-expires=1795986000&x-signature=BeC5SG7pgkN7tuxGxBJHKNwhzw0%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5"
+  },
+  {
+   "url": "https://www.instagram.com/reel/C6lveTWN6JY/",
+   "platform": "instagram",
+   "account": "madsludvig",
+   "creator": "Mads Ludvig",
+   "title": "running",
+   "views": 16700,
+   "cover": "https://scontent-lax3-2.cdninstagram.com/v/t51.71878-15/504052010_1012834097668840_7330840008949551317_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=MzM2MTMwMTQ4NzQ0NjEwNjcxMg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjcyMC5zZHIudmlkZW9fZGVmYXVsdF9jb3Zlcl9mcmFtZS5DMyJ9&_nc_ohc=px8OzKlLosAQ7kNvwGUxnee&_nc_oc=AdpHdFFDALgq-PLuVzW2UfpCt7ngQGVTp66YkOcjyD5n7ifrPc9u2U2c9S_z3uiYCpxrS4Hzv22fwCyyqr40A9X3&_nc_zt=23&_nc_ht=scontent-lax3-2.cdninstagram.com&_nc_gid=YN_xOkkdfN5u6D2jqloV0Q&_nc_ss=797a8&_nc_ct=RQosPBUIFQQlBAAAAA&oh=00_AQUBYdtKzl9o8kSmzpUQe2E8L9kWAYMSqGrCQRmC7LR6kQ&oe=6B0FC55C"
+  },
+  {
+   "url": "https://www.instagram.com/reel/C5VyNU8NaoO/",
+   "platform": "instagram",
+   "account": "madsludvig",
+   "creator": "Mads Ludvig",
+   "title": "life in lisbon/porto",
+   "views": 14700,
+   "cover": "https://scontent-lax7-1.cdninstagram.com/v/t51.71878-15/503271122_1427204118596951_9062625680108517520_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=103&_nc_map=urlgen_bucketless&ig_cache_key=MzMzODc5NTUxNjkyODgyOTk2Ng%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjMyMTYuc2RyLnZpZGVvX2RlZmF1bHRfY292ZXJfZnJhbWUuQzMifQ%3D%3D&_nc_ohc=M55M4tHyDMQQ7kNvwG-Mm_z&_nc_oc=Adpk6PfxL2kTB1UU4TrBOkRNKy9bvWOfqQoda7cP8e4tzMjWk7h7-j01BmESBRyLJUIssJHDRr8AWw_E7G0c8ol1&_nc_zt=23&_nc_ht=scontent-lax7-1.cdninstagram.com&_nc_gid=EF9Sn2gCgqcuzUK0CATYAA&_nc_ss=797a8&_nc_ct=RQosPBUIFQQlBAAAAA&oh=00_AQUS-EwxlFnZJuwEzBxpVBiBaaOcchBUih6WDgYDuhL7_A&oe=6B0FD2F4"
+  },
+  {
+   "url": "https://www.tiktok.com/@mads.ludvig/video/7349932105419312417",
+   "platform": "tiktok",
+   "account": "mads.ludvig",
+   "creator": "Mads Ludvig",
+   "title": "a love letter from paris",
+   "views": 12900,
+   "cover": "https://p19-common-sign.tiktokcdn-us.com/tos-useast2a-p-0037-euttp/c874bd8a601046ddad8be11d3ed5ab58_1711289447~tplv-tiktokx-origin.image?dr=9636&x-expires=1795986000&x-signature=THawk0QSe0G%2FiNyh2eFPS0gGO9U%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5"
+  },
+  {
+   "url": "https://www.instagram.com/reel/C45knpTNXpw/",
+   "platform": "instagram",
+   "account": "madsludvig",
+   "creator": "Mads Ludvig",
+   "title": "a love letter from paris",
+   "views": 10800,
+   "cover": "https://scontent-lax3-1.cdninstagram.com/v/t51.71878-15/500061811_1227878998775998_1048315883617295222_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ig_cache_key=MzMzMDg1NDQ1MzQ5Njg3MTUzNg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjcyMC5zZHIudmlkZW9fZGVmYXVsdF9jb3Zlcl9mcmFtZS5DMyJ9&_nc_ohc=It2BXr0SDqcQ7kNvwHSnPm7&_nc_oc=AdqfW9eQ47b6ELgM_oI6F1EnM0F8hwknAFo6iU87wnTAXeuJD9fw4NJZKMhstUe3LxSz9Ij78IugYRPmKEsyS94G&_nc_zt=23&_nc_ht=scontent-lax3-1.cdninstagram.com&_nc_gid=aCA0PAmtNUiWIvEKUHYfJQ&_nc_ss=797a8&_nc_ct=RQosPBUIFQQlBAAAAA&oh=00_AQUOWbBIRhgvKWjiOvfbeKBqEFgLfMzG2xj8Cv_atmHPyA&oe=6B0FE555"
+  },
+  {
+   "url": "https://www.tiktok.com/@mads.ludvig/video/7359301859745598752",
+   "platform": "tiktok",
+   "account": "mads.ludvig",
+   "creator": "Mads Ludvig",
+   "title": "life in lisbon/porto",
+   "views": 9247,
+   "cover": "https://p16-common-sign.tiktokcdn-us.com/tos-useast2a-p-0037-euttp/efa6be98afc948319465ed1bd2dd0abe_1713470999~tplv-tiktokx-origin.image?dr=9636&x-expires=1795986000&x-signature=AENqKYDme6h5MG3rvTZV8KIh6v8%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5"
+  },
+  {
+   "url": "https://www.tiktok.com/@mads.ludvig/video/7359627111415532833",
+   "platform": "tiktok",
+   "account": "mads.ludvig",
+   "creator": "Mads Ludvig",
+   "title": "Latest video on YouTube",
+   "views": 8543,
+   "cover": "https://p16-common-sign.tiktokcdn-us.com/tos-useast2a-p-0037-euttp/8ba28fca55bd4b6db6441eb94e692eb3_1713546726~tplv-tiktokx-origin.image?dr=9636&x-expires=1795986000&x-signature=QmDCBFHOD0uwl8O75gYfLwj9%2FW0%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5"
   }
- ],
- "_views": {
-  "Payton King": "50M+"
- }
+ ]
 }

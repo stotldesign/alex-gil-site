@@ -333,34 +333,38 @@
     var pills = el("div", "pills");
     var grid = el("div", "grid");
     var more = el("div", "more");
-    var shelf = el("div", "shelf"), shorts = {};
-    // short-form clips (TikToks, Reels) for a channel, from work/shorts.json via the fetch-shorts action
-    fetch("/data/shorts.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : {}; })
-      .then(function (j) { shorts = j || {}; renderShelf(); }).catch(function () {});
+    var shortsHead = el("div", "shorts-head mono dim"), shorts = { clips: [] };
+    // short-form edits (TikToks, Reels): their own "Shorts" view, from work/shorts.json via the fetch-shorts action
+    fetch("/data/shorts.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        if (!j || !j.clips || !j.clips.length) return;
+        shorts = j;
+        if (pills.firstChild) { renderPills(); renderGrid(); }
+      }).catch(function () {});
 
-    function renderShelf() {
-      shelf.textContent = "";
-      var clips = (state.filter !== "All" && state.filter.charAt(0) !== "_" && shorts[state.filter]) || [];
-      shelf.hidden = !clips.length;
-      grid.classList.toggle("grid--labelled", clips.length > 0);
-      if (!clips.length) return;
-      var tot = (shorts._views || {})[state.filter];
-      shelf.appendChild(el("div", "shelf__label mono dim", "shorts · " + clips.length + (tot ? " · " + tot + " views" : "")));
-      var row = el("div", "shelf__row");
-      clips.forEach(function (c) {
+    // a hand-checked total, so it's rounded down and shown with a + (TikTok and Instagram can't be read live)
+    function floorCompact(n) {
+      var units = [[1e9, "B"], [1e6, "M"], [1e3, "K"]];
+      for (var i = 0; i < units.length; i++) if (n >= units[i][0]) return Math.floor(n / units[i][0]) + units[i][1];
+      return String(n);
+    }
+
+    function renderShorts() {
+      grid.classList.add("grid--shorts");
+      shortsHead.hidden = false;
+      shortsHead.textContent = shorts.clips.length + " shorts · " + floorCompact(shorts.total) + "+ views";
+      shorts.clips.forEach(function (c) {
         var a = el("a", "short");
         a.href = c.url; a.target = "_blank"; a.rel = "noopener";
-        a.title = (c.title || "Watch") + (c.platform === "tiktok" ? " on TikTok" : " on Instagram");
+        a.title = (c.title ? c.title + " · " : "") + (c.platform === "tiktok" ? "watch on TikTok" : "watch on Instagram");
         var pic = el("div", "short__pic");
         if (c.img) { var img = el("img"); img.src = c.img; img.alt = c.title || ""; img.loading = "lazy"; pic.appendChild(img); }
         a.appendChild(pic);
-        var tag = (c.platform === "tiktok" ? "tiktok" : "reel");
-        if (c.account && c.account.toLowerCase() !== state.filter.replace(/\s/g, "").toLowerCase()) tag += " · @" + c.account;
-        a.appendChild(el("span", "short__meta mono dim", tag));
-        row.appendChild(a);
+        var where = [c.platform].concat(c.also || []).map(function (p) { return p === "tiktok" ? "tiktok" : "reel"; }).join(" + ");
+        a.appendChild(el("span", "short__name", c.creator || ("@" + c.account)));
+        a.appendChild(el("span", "short__meta mono dim", where + " · " + compact(c.views)));
+        grid.appendChild(a);
       });
-      shelf.appendChild(row);
-      shelf.appendChild(el("div", "shelf__label mono dim", "videos"));
     }
 
     // All: shuffled once per visit. A channel: newest to oldest.
@@ -448,6 +452,7 @@
         return b;
       }
       pills.appendChild(pill("All"));
+      if (shorts.clips.length) pills.appendChild(pill("Shorts"));
       var viewport = el("div", "marquee");
       var track = el("div", "marquee__track");
       var setA = el("div", "marquee__set"), setB = el("div", "marquee__set");
@@ -521,9 +526,11 @@
     }
 
     function renderGrid() {
-      renderShelf();
       grid.textContent = "";
       more.textContent = "";
+      grid.classList.remove("grid--shorts");
+      shortsHead.hidden = true;
+      if (state.filter === "Shorts") { renderShorts(); return; }
       var list = currentList();
       list.slice(0, state.limit).forEach(function (v) {
         var c = el("button", "card");
@@ -578,12 +585,12 @@
       state.sel = highlights[Math.floor(Math.random() * highlights.length)];
       // links from the homepage credits: ?channel=Name opens that channel, ?v=id features that video
       var qs = new URLSearchParams(location.search), qc = qs.get("channel"), qv = qs.get("v");
-      if (qc && all.some(function (x) { return x.channel === qc; })) state.filter = qc;
+      if (qc && (qc === "Shorts" || all.some(function (x) { return x.channel === qc; }))) state.filter = qc;
       var picked = qv && all.filter(function (x) { return x.id === qv; })[0];
       if (picked) { state.sel = picked; state.auto = false; }
       root.appendChild(feature);
       root.appendChild(pills);
-      root.appendChild(shelf);
+      root.appendChild(shortsHead);
       root.appendChild(grid);
       root.appendChild(more);
       renderFeature();
